@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goldy's Bagels — Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: 5.5in 8.5in;
+      margin: 0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 5.5in;
+      min-height: 8.5in;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #FFF8EE;
+      color: #2C1810;
+    }
+
+    .card {
+      width: 5.5in;
+      min-height: 8.5in;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .menu-header {
+      background: #2C1810;
+      color: #FFF8EE;
+      padding: 32px 28px 24px;
+      text-align: center;
+    }
+    .menu-header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+    .menu-header .tagline {
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #C8882B;
+    }
+    .menu-header .location {
+      font-size: 0.6rem;
+      font-weight: 400;
+      color: #E8D5B5;
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+
+    /* Body */
+    .menu-body {
+      flex: 1;
+      padding: 28px 28px 20px;
+    }
+
+    .category {
+      margin-bottom: 22px;
+    }
+    .category-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #C8882B;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid #E8D5B5;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .item-left {
+      flex: 1;
+    }
+    .item-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #2C1810;
+    }
+    .item-desc {
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: #777;
+      line-height: 1.4;
+      margin-top: 1px;
+    }
+    .item-price {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #8B6914;
+      white-space: nowrap;
+      margin-left: 12px;
+    }
+
+    /* Bulk deals */
+    .bulk-deals {
+      background: #2C1810;
+      color: #FFF8EE;
+      margin: 0 -28px;
+      padding: 18px 28px;
+      margin-top: 16px;
+    }
+    .bulk-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #C8882B;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .bulk-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+    .bulk-name {
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+    .bulk-desc {
+      font-size: 0.65rem;
+      font-weight: 300;
+      color: #E8D5B5;
+    }
+    .bulk-price {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #C8882B;
+    }
+
+    /* Footer */
+    .menu-footer {
+      background: #C8882B;
+      color: #2C1810;
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    .footer-left {
+      text-transform: uppercase;
+    }
+    .footer-right {
+      font-weight: 600;
+    }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .card { page-break-inside: avoid; }
+    }
+
+    @media screen and (max-width: 500px) {
+      html, body { width: 100%; }
+      .card { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Header -->
+    <div class="menu-header">
+      <h1>GOLDY'S BAGELS</h1>
+      <p class="tagline">Hand-Rolled · Cold-Fermented · Stone-Baked</p>
+      <p class="location">📍 Verrado Farmers Market · Buckeye, AZ</p>
+    </div>
+
+    <!-- Menu Body -->
+    <div class="menu-body">
+      <!-- Single Bagels -->
+      <div class="category">
+        <div class="category-title">Bagels</div>
+        <div class="menu-item">
+          <div class="item-left">
+            <div class="item-name">Plain or Everything Bagel</div>
+            <div class="item-desc">Hand-rolled, cold-fermented 24–48 hours, stone-baked</div>
+          </div>
+          <div class="item-price">$2</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-left">
+            <div class="item-name">Bagel with Shmear</div>
+            <div class="item-desc">Your choice of fresh cream cheese spread</div>
+          </div>
+          <div class="item-price">$4</div>
+        </div>
+      </div>
+
+      <!-- Sandwiches -->
+      <div class="category">
+        <div class="category-title">Sandwiches</div>
+        <div class="menu-item">
+          <div class="item-left">
+            <div class="item-name">Egg & Cheese Bagel</div>
+            <div class="item-desc">Fresh-cracked egg, melted cheese on a warm bagel</div>
+          </div>
+          <div class="item-price">$8</div>
+        </div>
+        <div class="menu-item">
+          <div class="item-left">
+            <div class="item-name">Add Bacon or Sausage</div>
+            <div class="item-desc">Make it a meat sandwich</div>
+          </div>
+          <div class="item-price">+$2</div>
+        </div>
+      </div>
+
+      <!-- Specialty -->
+      <div class="category">
+        <div class="category-title">Specialty</div>
+        <div class="menu-item">
+          <div class="item-left">
+            <div class="item-name">Loaded Nova Lox Bagel</div>
+            <div class="item-desc">Nova lox, cream cheese, capers, red onion, tomato</div>
+          </div>
+          <div class="item-price">$12</div>
+        </div>
+      </div>
+
+      <!-- Bulk Deals -->
+      <div class="bulk-deals">
+        <div class="bulk-title">Take Home a Batch</div>
+        <div class="bulk-row">
+          <div>
+            <span class="bulk-name">Half Dozen</span>
+            <span class="bulk-desc"> — 6 bagels</span>
+          </div>
+          <div class="bulk-price">$10</div>
+        </div>
+        <div class="bulk-row">
+          <div>
+            <span class="bulk-name">Full Dozen</span>
+            <span class="bulk-desc"> — 12 bagels</span>
+          </div>
+          <div class="bulk-price">$18</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="menu-footer">
+      <span class="footer-left">📍 Verrado Farmers Market</span>
+      <span class="footer-right">Buckeye, AZ</span>
+    </div>
+  </div>
+</body>
+</html>

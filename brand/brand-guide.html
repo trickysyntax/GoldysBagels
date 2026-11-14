@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goldy's Bagels — Brand Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --golden-crust: #C8882B;
+      --cream-dough: #FFF8EE;
+      --malt-water: #8B6914;
+      --espresso: #2C1810;
+      --sesame: #E8D5B5;
+      --warm-white: #FEFCF7;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--warm-white);
+      color: var(--espresso);
+      line-height: 1.6;
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+
+    /* Header */
+    .brand-header {
+      background: var(--espresso);
+      color: var(--cream-dough);
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .brand-header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .brand-header .subtitle {
+      font-size: 0.875rem;
+      font-weight: 300;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--golden-crust);
+    }
+
+    /* Sections */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 60px 40px;
+      border-bottom: 1px solid var(--sesame);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--golden-crust);
+      margin-bottom: 8px;
+    }
+    .section h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--espresso);
+    }
+
+    /* Essence */
+    .essence-quote {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--malt-water);
+      line-height: 1.5;
+      border-left: 3px solid var(--golden-crust);
+      padding-left: 24px;
+      margin: 20px 0;
+    }
+
+    /* Typography */
+    .type-sample {
+      margin-bottom: 32px;
+    }
+    .type-sample .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--golden-crust);
+      margin-bottom: 8px;
+    }
+    .type-display {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--espresso);
+    }
+    .type-display-italic {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--malt-water);
+    }
+    .type-body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--espresso);
+      max-width: 600px;
+    }
+    .type-weights {
+      display: flex;
+      gap: 32px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .type-weights span {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.875rem;
+    }
+    .type-weights .w300 { font-weight: 300; }
+    .type-weights .w400 { font-weight: 400; }
+    .type-weights .w500 { font-weight: 500; }
+    .type-weights .w600 { font-weight: 600; }
+    .type-weights .w700 { font-weight: 700; }
+
+    /* Colors */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 20px;
+    }
+    .color-swatch {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(44,24,16,0.08);
+    }
+    .color-block {
+      height: 100px;
+    }
+    .color-info {
+      padding: 12px 16px;
+      background: white;
+    }
+    .color-name {
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      color: var(--espresso);
+    }
+    .color-hex {
+      font-size: 0.75rem;
+      color: #888;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      margin-top: 2px;
+    }
+
+    /* Logo usage */
+    .logo-row {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .logo-on-light {
+      background: var(--cream-dough);
+      padding: 32px;
+      border-radius: 12px;
+      border: 1px solid var(--sesame);
+    }
+    .logo-on-dark {
+      background: var(--espresso);
+      padding: 32px;
+      border-radius: 12px;
+    }
+    .logo-on-dark svg text { fill: var(--cream-dough) !important; }
+    .logo-on-dark svg .subtitle-text { fill: var(--golden-crust) !important; }
+
+    /* Voice */
+    .voice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .voice-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid var(--sesame);
+    }
+    .voice-card h4 {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--golden-crust);
+      margin-bottom: 12px;
+    }
+    .voice-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .voice-do {
+      color: #2d6a2e;
+      font-weight: 500;
+    }
+    .voice-dont {
+      color: #a03030;
+      font-weight: 500;
+      text-decoration: line-through;
+    }
+
+    /* Photography */
+    .photo-notes {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .photo-note {
+      background: white;
+      border: 1px solid var(--sesame);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .photo-note h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--malt-water);
+    }
+    .photo-note p {
+      font-size: 0.85rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      .brand-header h1 { font-size: 2rem; }
+      .section { padding: 40px 24px; }
+      .voice-grid { grid-template-columns: 1fr; }
+      .logo-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="brand-header">
+    <h1>GOLDY'S BAGELS</h1>
+    <p class="subtitle">Brand Identity Guide</p>
+  </header>
+
+  <!-- Essence -->
+  <section class="section">
+    <p class="section-label">01 — Brand Essence</p>
+    <h2>Why We Exist</h2>
+    <div class="essence-quote">
+      "Growing up on the East Coast, bagels were everywhere. When our family moved to Arizona, it was a bagel desert — so we made our own."
+    </div>
+    <p style="margin-top: 16px; color: #555; max-width: 600px;">
+      Goldy's is the taste of home, carried 2,000 miles across the country and recreated from scratch in a family kitchen. Every bagel is a love letter to East Coast tradition, made with Arizona grit.
+    </p>
+  </section>
+
+  <!-- Typography -->
+  <section class="section">
+    <p class="section-label">02 — Typography</p>
+    <h2>Type System</h2>
+
+    <div class="type-sample">
+      <div class="label">Display — Playfair Display</div>
+      <div class="type-display">Hand-Rolled. Stone-Baked.</div>
+      <div class="type-display-italic" style="margin-top: 8px;">The Bagel Desert is Over.</div>
+      <div class="type-weights">
+        <span class="w400">Regular 400</span>
+        <span class="w700">Bold 700</span>
+        <span style="font-weight: 900;">Black 900</span>
+      </div>
+    </div>
+
+    <div class="type-sample">
+      <div class="label">Body — Inter</div>
+      <p class="type-body">
+        We use only the highest quality USA wheat flour with high gluten content for a tender, springy interior. Each bagel is hand-rolled the old way, cold-fermented for 24–48 hours, boiled in malted water, and baked on stone at high heat.
+      </p>
+      <div class="type-weights">
+        <span class="w300">Light 300</span>
+        <span class="w400">Regular 400</span>
+        <span class="w500">Medium 500</span>
+        <span class="w600">Semibold 600</span>
+        <span class="w700">Bold 700</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colors -->
+  <section class="section">
+    <p class="section-label">03 — Color Palette</p>
+    <h2>Colors From the Kitchen</h2>
+    <p style="margin-bottom: 24px; color: #555; max-width: 600px;">
+      Every color comes from something real in the bagel-making process — the golden crust, the cream interior, the malted water, the espresso you drink alongside it.
+    </p>
+    <div class="color-grid">
+      <div class="color-swatch">
+        <div class="color-block" style="background: #C8882B;"></div>
+        <div class="color-info">
+          <div class="color-name">Golden Crust</div>
+          <div class="color-hex">#C8882B</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-block" style="background: #FFF8EE;"></div>
+        <div class="color-info">
+          <div class="color-name">Cream Dough</div>
+          <div class="color-hex">#FFF8EE</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-block" style="background: #8B6914;"></div>
+        <div class="color-info">
+          <div class="color-name">Malt Water</div>
+          <div class="color-hex">#8B6914</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-block" style="background: #2C1810;"></div>
+        <div class="color-info">
+          <div class="color-name">Espresso</div>
+          <div class="color-hex">#2C1810</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-block" style="background: #E8D5B5;"></div>
+        <div class="color-info">
+          <div class="color-name">Sesame</div>
+          <div class="color-hex">#E8D5B5</div>
+        </div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-block" style="background: #FEFCF7; border-bottom: 1px solid #E8D5B5;"></div>
+        <div class="color-info">
+          <div class="color-name">Warm White</div>
+          <div class="color-hex">#FEFCF7</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logo Usage -->
+  <section class="section">
+    <p class="section-label">04 — Logo</p>
+    <h2>Logo Mark</h2>
+    <p style="margin-bottom: 16px; color: #555; max-width: 600px;">
+      The bagel mark works on light and dark backgrounds. On dark backgrounds, the text inverts to Cream Dough with the subtitle in Golden Crust. The mark should never be stretched, rotated, or recolored outside the brand palette.
+    </p>
+    <div class="logo-row">
+      <div class="logo-on-light">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="140" height="140">
+          <defs>
+            <radialGradient id="cg1" cx="50%" cy="45%" r="50%">
+              <stop offset="0%" stop-color="#D4993A"/>
+              <stop offset="60%" stop-color="#C8882B"/>
+              <stop offset="100%" stop-color="#A06B1F"/>
+            </radialGradient>
+            <filter id="s1" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2C1810" flood-opacity="0.2"/>
+            </filter>
+          </defs>
+          <ellipse cx="100" cy="100" rx="72" ry="68" fill="url(#cg1)" stroke="#8B5E14" stroke-width="2" filter="url(#s1)"/>
+          <ellipse cx="100" cy="98" rx="24" ry="22" fill="#FFF8EE" stroke="#A06B1F" stroke-width="1.5"/>
+          <ellipse cx="65" cy="72" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-20 65 72)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="80" cy="60" rx="5" ry="3" fill="#E8D5B5" transform="rotate(15 80 60)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="120" cy="58" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-10 120 58)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="140" cy="68" rx="5" ry="3" fill="#E8D5B5" transform="rotate(25 140 68)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="150" cy="88" rx="5" ry="3" fill="#E8D5B5" transform="rotate(45 150 88)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="55" cy="92" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-45 55 92)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="100" cy="50" rx="5" ry="3" fill="#E8D5B5" transform="rotate(0 100 50)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="75" cy="135" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-30 75 135)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="125" cy="135" rx="5" ry="3" fill="#E8D5B5" transform="rotate(30 125 135)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="82" cy="65" rx="20" ry="10" fill="white" opacity="0.12" transform="rotate(-15 82 65)"/>
+          <path id="ta1" d="M 35 155 Q 100 185 165 155" fill="none"/>
+          <text font-family="'Playfair Display', Georgia, serif" font-size="18" font-weight="700" fill="#2C1810" letter-spacing="3">
+            <textPath href="#ta1" startOffset="50%" text-anchor="middle">GOLDY'S</textPath>
+          </text>
+          <text x="100" y="178" text-anchor="middle" font-family="'Inter', sans-serif" font-size="8" font-weight="500" fill="#8B6914" letter-spacing="2">BAGELS</text>
+        </svg>
+      </div>
+      <div class="logo-on-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="140" height="140">
+          <defs>
+            <radialGradient id="cg2" cx="50%" cy="45%" r="50%">
+              <stop offset="0%" stop-color="#D4993A"/>
+              <stop offset="60%" stop-color="#C8882B"/>
+              <stop offset="100%" stop-color="#A06B1F"/>
+            </radialGradient>
+            <filter id="s2" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+            </filter>
+          </defs>
+          <ellipse cx="100" cy="100" rx="72" ry="68" fill="url(#cg2)" stroke="#A06B1F" stroke-width="2" filter="url(#s2)"/>
+          <ellipse cx="100" cy="98" rx="24" ry="22" fill="#2C1810" stroke="#A06B1F" stroke-width="1.5"/>
+          <ellipse cx="65" cy="72" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-20 65 72)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="80" cy="60" rx="5" ry="3" fill="#E8D5B5" transform="rotate(15 80 60)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="120" cy="58" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-10 120 58)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="140" cy="68" rx="5" ry="3" fill="#E8D5B5" transform="rotate(25 140 68)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="150" cy="88" rx="5" ry="3" fill="#E8D5B5" transform="rotate(45 150 88)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="55" cy="92" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-45 55 92)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="100" cy="50" rx="5" ry="3" fill="#E8D5B5" transform="rotate(0 100 50)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="75" cy="135" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-30 75 135)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="125" cy="135" rx="5" ry="3" fill="#E8D5B5" transform="rotate(30 125 135)" stroke="#C8882B" stroke-width="0.5"/>
+          <ellipse cx="82" cy="65" rx="20" ry="10" fill="white" opacity="0.12" transform="rotate(-15 82 65)"/>
+          <path id="ta2" d="M 35 155 Q 100 185 165 155" fill="none"/>
+          <text font-family="'Playfair Display', Georgia, serif" font-size="18" font-weight="700" fill="#FFF8EE" letter-spacing="3">
+            <textPath href="#ta2" startOffset="50%" text-anchor="middle">GOLDY'S</textPath>
+          </text>
+          <text x="100" y="178" text-anchor="middle" font-family="'Inter', sans-serif" font-size="8" font-weight="500" fill="#C8882B" letter-spacing="2">BAGELS</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Voice & Tone -->
+  <section class="section">
+    <p class="section-label">05 — Voice & Tone</p>
+    <h2>How We Talk</h2>
+    <p style="margin-bottom: 16px; color: #555; max-width: 600px;">
+      Goldy's voice is warm, proud, and unpretentious. We speak like a family sharing something they love — not like a brand selling something. Short, rhythmic, real.
+    </p>
+
+    <div class="voice-grid">
+      <div class="voice-card">
+        <h4>We Say</h4>
+        <p><span class="voice-do">"Hand-rolled. Cold-fermented. Stone-baked. Ready to shmear."</span></p>
+        <p style="margin-top: 12px;"><span class="voice-do">"The bagel desert is over."</span></p>
+        <p style="margin-top: 12px;"><span class="voice-do">"We learned to make our own — step by step."</span></p>
+      </div>
+      <div class="voice-card">
+        <h4>We Don't Say</h4>
+        <p><span class="voice-dont">"Artisanal handcrafted gourmet bagels made with premium ingredients."</span></p>
+        <p style="margin-top: 12px;"><span class="voice-dont">"Elevate your breakfast experience."</span></p>
+        <p style="margin-top: 12px;"><span class="voice-dont">"The finest bagels in the greater Phoenix metropolitan area."</span></p>
+      </div>
+      <div class="voice-card">
+        <h4>Tone Keywords</h4>
+        <p>Warm · Proud · Familial · Honest · Rhythmic · Specific</p>
+      </div>
+      <div class="voice-card">
+        <h4>Sample Headline</h4>
+        <p style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.25rem; font-weight: 700; color: var(--espresso);">
+          "East Coast tradition.<br>Arizona grit.<br>One hell of a bagel."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photography Direction -->
+  <section class="section">
+    <p class="section-label">06 — Photography Direction</p>
+    <h2>Visual Style</h2>
+    <div class="photo-notes">
+      <div class="photo-note">
+        <h4>Lighting</h4>
+        <p>Natural, warm. Golden hour or soft morning light. No harsh studio flash. Think farmers market at 7am.</p>
+      </div>
+      <div class="photo-note">
+        <h4>Subject</h4>
+        <p>Hands rolling dough, bagels on stone, steam rising, shmear being spread, stacked bagels at the stand. Process over product.</p>
+      </div>
+      <div class="photo-note">
+        <h4>Color</h4>
+        <p>Warm tones dominant. Desaturate blues and cool tones slightly. Let the golden crust and cream dough tones lead.</p>
+      </div>
+      <div class="photo-note">
+        <h4>Mood</h4>
+        <p>Intimate, handmade, real. No stock-photo perfection. Slightly rustic. Flour dust on the counter is a feature, not a flaw.</p>
+      </div>
+      <div class="photo-note">
+        <h4>People</h4>
+        <p>Family members, customers at the market, hands (always hands). Faces are welcome but hands tell the story better.</p>
+      </div>
+      <div class="photo-note">
+        <h4>Avoid</h4>
+        <p>Overhead flat-lay spreads, generic coffee-shop shots, anything that looks like it was photographed in a studio.</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="goldGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#E8C56A"/>
+      <stop offset="40%" stop-color="#D4A547"/>
+      <stop offset="100%" stop-color="#B8923A"/>
+    </linearGradient>
+  </defs>
+  <!-- Puffy bagel-G: single continuous stroke, organic spiral with hook -->
+  <path d="M 84 34
+           C 84 22 66 16 47 20
+           C 29 24 19 39 21 56
+           C 23 73 38 87 57 88
+           C 75 89 85 76 84 64
+           L 49 61
+           C 39 60 32 64 34 73"
+        stroke="url(#goldGrad)"
+        stroke-width="14"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"/>
+</svg>

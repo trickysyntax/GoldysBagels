@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goldy's Bagels — East Coast Bagels, Baked in the Desert</title>
+  <meta name="description" content="Hand-rolled, cold-fermented bagels baked in Buckeye, Arizona. Order Plain, Salt, Sesame or Everything — up to two dozen — for Wednesday to Saturday pickup at Blue Sky Organic Farms in Litchfield Park.">
+  <meta name="theme-color" content="#1C1A18">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://goldysbagels.com/">
+  <meta property="og:title" content="Goldy's Bagels — East Coast Bagels, Baked in the Desert">
+  <meta property="og:description" content="Hand-rolled, cold-fermented bagels baked in Buckeye, Arizona. Order up to two dozen for Wednesday–Saturday pickup at Blue Sky Organic Farms, Litchfield Park.">
+  <meta property="og:image" content="https://goldysbagels.com/assets/goldys-logo-stacked.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F5F1EA;
+      --cream-light: #FAF7F0;
+      --dark: #1C1A18;
+      --dark-soft: #252220;
+      --gold: #C9A24A;          /* on dark surfaces + large display type */
+      --gold-bright: #D4A547;
+      --gold-soft: #B8923A;
+      --gold-ink: #8A6712;      /* gold that clears WCAG AA on cream (4.6:1) */
+      --text: #2C2823;
+      --text-muted: #6B655C;
+      --divider: #E0DAD0;
+      --sold-out: #B85C3D;
+      --available: #5A8A5A;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Young Serif', serif;
+      letter-spacing: -0.01em;
+    }
+    .eyebrow {
+      font-family: 'Young Serif', serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-ink);
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Keyboard focus must be visible everywhere (WCAG 2.4.7) */
+    :focus-visible {
+      outline: 3px solid var(--gold-ink);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .announcement-banner :focus-visible,
+    .hero :focus-visible,
+    .preorder-banner :focus-visible,
+    footer :focus-visible,
+    nav:not(.scrolled) :focus-visible {
+      outline-color: var(--gold);
+    }
+
+    /* ===== LOGO (PNG) ===== */
+    .bagel-g {
+      display: inline-block;
+      vertical-align: middle;
+      object-fit: contain;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: var(--banner-h, 48px); left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px;
+      transition: background 0.3s ease, padding 0.3s ease;
+    }
+    nav.scrolled {
+      background: var(--cream);
+      box-shadow: 0 1px 0 var(--divider);
+      padding: 10px 48px;
+    }
+    .nav-logo {
+      display: flex; align-items: center;
+    }
+    .nav-logo img { height: 80px; width: auto; transition: height 0.3s ease; display: block; }
+    .nav-logo .logo-scroll { display: none; }
+    nav.scrolled .nav-logo img { height: 48px; }
+    nav.scrolled .nav-logo .logo-default { display: none; }
+    nav.scrolled .nav-logo .logo-scroll { display: block; }
+    .nav-logo span {
+      font-family: 'Young Serif', serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: #fff; transition: color 0.3s ease;
+    }
+    nav.scrolled .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 500;
+      color: rgba(255,255,255,0.85); transition: color 0.3s ease;
+    }
+    nav.scrolled .nav-links a { color: var(--text); }
+    .nav-links a:hover { color: var(--gold-ink); }
+    /* dark contexts: bright gold reads 7.2:1 on #1C1A18, gold-ink only 3.3:1 */
+    nav:not(.scrolled) .nav-links a:hover,
+    .find-us .eyebrow { color: var(--gold); }
+    .nav-status {
+      font-size: 0.75rem; font-weight: 600;
+      padding: 6px 14px; border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+    .nav-status.open {
+      background: #2A5C2A;
+      color: #B5E3B5;
+    }
+    nav.scrolled .nav-status.open {
+      background: #2A5C2A;
+      color: #B5E3B5;
+    }
+    .nav-status.closed {
+      background: #6B3020;
+      color: #F0A090;
+    }
+    nav.scrolled .nav-status.closed {
+      background: #6B3020;
+      color: #F0A090;
+    }
+    .nav-toggle {
+      display: none;
+      width: 40px; height: 40px; padding: 0;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px; cursor: pointer;
+      flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 18px; height: 2px; border-radius: 2px; background: #fff;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    nav.scrolled .nav-toggle { background: var(--cream-light); border-color: var(--divider); }
+    nav.scrolled .nav-toggle span { background: var(--text); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .btn-account {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+      color: white; width: 34px; height: 34px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; padding: 0;
+    }
+    .btn-account:hover { background: rgba(255,255,255,0.2); }
+    nav.scrolled .btn-account {
+      background: var(--cream-light); border-color: var(--divider); color: var(--text);
+    }
+    nav.scrolled .btn-account:hover { background: var(--cream); }
+
+    /* ===== ACCOUNT MODAL ===== */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.5); align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-box {
+      background: var(--cream-light); border-radius: 16px; padding: 32px;
+      max-width: 380px; width: 100%; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .modal-box h3 { font-size: 1.2rem; margin-bottom: 20px; text-align: center; font-family: 'Inter', sans-serif; }
+    .modal-box input {
+      width: 100%; padding: 10px 14px; border: 1px solid var(--divider);
+      border-radius: 8px; font-size: 14px; font-family: inherit;
+      background: white; margin-bottom: 10px; color: var(--text);
+    }
+    .modal-box input:focus {
+      border-color: var(--gold-ink); }
+    .modal-box .btn-primary {
+      width: 100%; padding: 12px; border: none; border-radius: 8px;
+      background: var(--gold); color: white; font-size: 15px; font-weight: 600;
+      cursor: pointer; font-family: inherit; margin-top: 4px;
+    }
+    .modal-box .btn-primary:hover { background: var(--gold-bright); }
+    .modal-box .btn-link {
+      background: none; border: none; color: var(--gold-ink); cursor: pointer;
+      font-size: 13px; font-family: inherit; margin-top: 12px; display: block; width: 100%; text-align: center;
+    }
+    .modal-box .btn-link:hover { text-decoration: underline; }
+    .modal-box .auth-error { color: var(--sold-out); font-size: 13px; margin-top: 8px; text-align: center; display: none; }
+    .modal-close {
+      position: absolute; top: 12px; right: 16px; background: none; border: none;
+      font-size: 22px; cursor: pointer; color: var(--text-muted); line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-box .user-info { text-align: center; padding: 10px 0; }
+    .modal-box .user-info .name { font-size: 1.1rem; font-weight: 600; color: var(--dark); }
+    .modal-box .user-info .email { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px; }
+    .modal-box .user-info .phone { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; }
+
+    @media (max-width: 560px) {
+      .modal-box { padding: 24px 20px; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; overflow: hidden;
+      /* No photo — a warm gold glow on the brand dark does the work instead. */
+      background:
+        radial-gradient(960px 660px at 76% 46%, rgba(201,162,74,0.15) 0%, rgba(201,162,74,0) 62%),
+        radial-gradient(680px 500px at 6% 90%, rgba(201,162,74,0.06) 0%, rgba(201,162,74,0) 60%),
+        var(--dark);
+    }
+    .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+    .hero-content {
+      position: relative; z-index: 2;
+      width: 100%; max-width: 1140px; margin: 0 auto;
+      padding: calc(var(--chrome-h, 163px) + 28px) 48px 100px;
+      display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 56px; align-items: center;
+    }
+    .hero-art { display: flex; justify-content: center; }
+    .hero-art img {
+      width: 100%; max-width: 540px; height: auto; display: block;
+      /* cutout — drop-shadow follows the alpha shape, a box-shadow would not */
+      filter: drop-shadow(0 26px 46px rgba(0,0,0,0.55));
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700; color: #fff;
+      line-height: 1.1; margin-bottom: 24px;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold); font-weight: 500; }
+    .hero p {
+      font-size: 1.1rem; color: rgba(255,255,255,0.82);
+      line-height: 1.75; max-width: 560px; margin-bottom: 36px;
+    }
+    .btn {
+      display: inline-block; background: var(--gold); color: var(--dark);
+      font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
+      padding: 16px 36px; border-radius: 6px; border: none; cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn:hover { background: var(--gold-bright); }
+    .btn:active { transform: translateY(1px); }
+    .btn:disabled {
+      background: var(--divider); color: var(--text-muted);
+      cursor: not-allowed;
+    }
+    .btn-secondary {
+      background: transparent; color: var(--gold-ink);
+      border: 1.5px solid var(--gold-ink);
+    }
+    .btn-secondary:hover { background: rgba(201,162,74,0.1); }
+
+    /* ===== SECTION GENERIC ===== */
+    section { padding: 120px 48px; }
+    .section-inner { max-width: 1140px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 72px; }
+    .section-header .eyebrow { display: block; margin-bottom: 16px; }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text); line-height: 1.15;
+    }
+    .section-header p {
+      font-size: 1.1rem; color: var(--text-muted);
+      max-width: 620px; margin: 20px auto 0; line-height: 1.7;
+    }
+
+    /* ===== OUR STORY ===== */
+    .story { background: var(--cream); }
+    .story-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+    }
+    .story-text .eyebrow { display: block; margin-bottom: 16px; }
+    .story-text h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      line-height: 1.2; margin-bottom: 32px;
+    }
+    .story-text p { color: var(--text-muted); margin-bottom: 20px; font-size: 1.0rem; }
+    .story-image { aspect-ratio: 1/1; border-radius: 4px; overflow: hidden; }
+    .story-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ===== THE CRAFT ===== */
+    .craft { background: var(--cream-light); }
+    .craft-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 48px; margin-top: 64px;
+    }
+    .craft-step { text-align: left; }
+    .craft-number {
+      font-family: 'Young Serif', serif;
+      font-size: 2.75rem; font-weight: 700;
+      color: var(--gold-ink); line-height: 1; margin-bottom: 20px;
+    }
+    .craft-step h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--text); }
+    .craft-step p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ===== PREORDER ===== */
+    .preorder { background: var(--cream); }
+    .preorder-banner {
+      background: var(--dark); color: #fff;
+      border-radius: 8px; padding: 28px 36px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 48px; flex-wrap: wrap; gap: 20px;
+    }
+    .preorder-banner-left { display: flex; align-items: center; gap: 16px; }
+    .preorder-banner .status-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .preorder-banner .status-dot.open { background: #8BC48B; box-shadow: 0 0 8px rgba(139,196,139,0.5); }
+    .preorder-banner .status-dot.closed { background: #D88A6D; }
+    .preorder-banner h3 {
+      font-size: 1.3rem; color: #fff; margin: 0;
+    }
+    .preorder-banner .banner-sub {
+      font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 2px;
+    }
+    .preorder-banner .countdown {
+      font-family: 'Young Serif', serif;
+      font-size: 1.6rem; color: var(--gold); font-weight: 600;
+    }
+
+    .preorder-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    /* Inventory bar */
+
+    /* Variety selector */
+    .variety-grid {
+      display: grid; grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+    /* Very narrow phones: drop the stepper below the name so the large
+       type and the full-size tap targets both survive. */
+    @media (max-width: 380px) {
+      .variety-chip { flex-direction: column; align-items: stretch; gap: 12px; }
+      .variety-chip .chip-name { flex: 0 0 auto; }
+      .variety-chip .chip-qty { align-self: flex-start; }
+      .variety-chip { padding: 16px 18px; }
+    }
+    .variety-chip {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 18px 22px; background: var(--cream-light);
+      border: 1.5px solid var(--divider); border-radius: 8px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+      user-select: none;
+    }
+    .variety-chip:hover { border-color: var(--gold-soft); }
+    .variety-chip.selected {
+      border-color: var(--gold-ink); background: rgba(201,162,74,0.10);
+    }
+    .variety-chip .chip-name {
+      font-family: 'Young Serif', serif;
+      font-size: 1.6rem; font-weight: 600; letter-spacing: -0.01em;
+      color: var(--text); line-height: 1.1;
+      flex: 1 1 auto; min-width: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .chip-thumb {
+      width: 64px; height: 64px; object-fit: contain; flex-shrink: 0;
+    }
+    .variety-chip .chip-qty {
+      display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+    }
+    .qty-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1.5px solid var(--divider); background: #fff;
+      font-size: 1.15rem; color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+      line-height: 1; padding: 0;
+    }
+    .qty-btn:active:not(:disabled) { background: rgba(138,103,18,0.10); }
+    .qty-btn:hover { border-color: var(--gold-ink); color: var(--gold-ink); }
+    .qty-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .chip-count {
+      font-family: 'Young Serif', serif;
+      font-weight: 600; min-width: 30px; text-align: center;
+      font-size: 1.15rem; color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Bundle quick-add */
+
+    /* Order summary */
+    .order-summary {
+      background: var(--cream-light); border-radius: 8px;
+      padding: 32px; position: sticky; top: 100px;
+    }
+    .order-summary h3 { font-size: 1.3rem; margin-bottom: 20px; color: var(--text); }
+    .summary-line {
+      display: flex; justify-content: space-between;
+      padding: 8px 0; font-size: 0.9rem; color: var(--text-muted);
+    }
+    .summary-line .line-name { color: var(--text); font-weight: 500; }
+    .summary-total {
+      display: flex; justify-content: space-between;
+      padding: 16px 0 0; margin-top: 12px;
+      border-top: 1px solid var(--divider);
+      font-family: 'Young Serif', serif;
+      font-size: 1.3rem; font-weight: 600; color: var(--text);
+    }
+    .summary-total .total-price { color: var(--gold-ink); }
+    .summary-empty { color: var(--text-muted); font-style: italic; font-size: 0.9rem; }
+
+    /* Contact form */
+    .contact-fields { margin-top: 24px; }
+    .contact-fields label {
+      display: block; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+    .contact-fields input, .contact-fields textarea {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--divider); border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      color: var(--text); background: #fff;
+      margin-bottom: 16px; transition: border 0.2s ease;
+    }
+    .contact-fields input:focus, .contact-fields textarea:focus {
+      border-color: var(--gold-ink);
+    }
+    .contact-fields textarea { resize: vertical; min-height: 60px; }
+
+    /* ===== TIP SELECTOR ===== */
+    .tip-section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--divider); }
+    .tip-section > label { display: block; margin-bottom: 10px; }
+    .tip-buttons { display: flex; gap: 8px; }
+    .tip-btn {
+      flex: 1; padding: 8px 4px; border: 1px solid var(--divider);
+      border-radius: 6px; background: #fff; font-size: 0.8rem;
+      cursor: pointer; transition: all 0.15s ease; color: var(--text);
+    }
+    .tip-btn:hover { border-color: var(--gold-soft); }
+    .tip-btn.selected { border-color: var(--gold-ink); background: rgba(201,162,74,0.12); color: var(--gold-ink); font-weight: 600; }
+    .tip-display {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 12px; padding: 10px 14px; background: rgba(201,162,74,0.06);
+      border-radius: 6px; font-size: 0.85rem;
+    }
+    .tip-display .grand-total { font-size: 0.95rem; }
+    .tip-display .grand-total strong { font-size: 1.1rem; color: var(--gold-ink); }
+
+    /* TEMPORARY — sections hidden for now (Nov 2026).
+       Delete this block to bring them back. */
+    #market-menu,
+    .signature { display: none; }
+    .nav-links a[href="#market-menu"] { display: none; }
+
+    /* ===== GALLERY ===== */
+    .gallery { background: var(--cream); }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .gallery-item {
+      margin: 0; overflow: hidden; border-radius: 10px;
+      aspect-ratio: 4 / 3; background: var(--cream-light);
+    }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s ease;
+    }
+    @media (hover: hover) {
+      .gallery-item:hover img { transform: scale(1.04); }
+    }
+    /* Portrait sources cropped to 4:3: anchor to the top so the scene reads
+       complete instead of cutting a subject at the bottom edge. */
+    .gallery-item.item-top img { object-position: center top; }
+
+    /* ===== ORDER BUILDER ===== */
+    .step-section { margin-bottom: 36px; }
+    .step-section h4 {
+      font-family: 'Young Serif', serif;
+      font-size: 1.15rem; color: var(--text); margin-bottom: 4px;
+    }
+    .step-sub { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 16px; }
+    .progress-wrap { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+    .progress-bar {
+      flex: 1; height: 8px; background: var(--divider);
+      border-radius: 4px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: var(--gold); border-radius: 4px;
+      width: 0; transition: width 0.3s ease;
+    }
+    .progress-label {
+      font-size: 0.8rem; color: var(--text-muted); font-weight: 600; white-space: nowrap;
+    }
+    .price-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; }
+
+    /* Pickup days */
+    .pickup-row {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;
+    }
+    .pickup-day {
+      padding: 14px 16px 15px; background: var(--cream-light);
+      border: 1.5px solid var(--divider); border-radius: 8px;
+      cursor: pointer; text-align: left;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+      font-family: 'Inter', sans-serif;
+      min-height: 92px;
+    }
+    .pickup-day:hover:not(:disabled) { transform: translateY(-1px); }
+    .pickup-day:hover:not(:disabled) { border-color: var(--gold-soft); }
+    .pickup-day.selected { border-color: var(--gold-ink); background: rgba(201,162,74,0.10); }
+    .pickup-day:disabled { opacity: 0.45; cursor: not-allowed; }
+    .pickup-day .pd-day {
+      display: block; font-weight: 600; font-size: 0.95rem; color: var(--text);
+      line-height: 1.3;
+    }
+    .pickup-day .pd-date { display: block; font-size: 0.85rem; color: var(--text-muted); }
+    .pickup-day .pd-left {
+      display: block; font-size: 0.75rem; color: var(--gold-ink);
+      font-weight: 600; margin-top: 4px;
+    }
+    .pickup-day.selected .pd-day::after {
+      content: "\2713";
+      margin-left: 6px;
+      color: var(--gold-ink);
+      font-weight: 700;
+    }
+    .pickup-recap {
+      background: rgba(201,162,74,0.10); border-left: 3px solid var(--gold);
+      padding: 10px 14px; border-radius: 0 4px 4px 0;
+      font-size: 0.875rem; color: var(--text); margin-bottom: 18px;
+    }
+    .pickup-recap strong { font-weight: 600; }
+
+    /* ===== MARKET MENU ===== */
+    .market-menu { background: var(--cream-light); }
+    .market-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px; margin-top: 56px;
+    }
+    .market-card {
+      background: #fff; border-radius: 8px; padding: 40px;
+    }
+    .market-card h3 { font-size: 1.4rem; margin-bottom: 6px; }
+    .market-card .card-sub {
+      font-size: 0.85rem; color: var(--text-muted); margin-bottom: 28px;
+    }
+    .market-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 0; border-bottom: 1px solid var(--divider);
+      gap: 12px;
+    }
+    .market-item:last-of-type { border-bottom: none; }
+    .market-item-info { flex: 1; padding-right: 16px; }
+    .market-item-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 2px; }
+    .market-item-desc { font-size: 0.82rem; color: var(--text-muted); }
+    .market-item-price {
+      font-family: 'Young Serif', serif;
+      font-size: 1.3rem; font-weight: 600; color: var(--gold-ink);
+      white-space: nowrap;
+    }
+    .market-note { font-style: italic; font-size: 0.82rem; color: var(--text-muted); margin-top: 12px; }
+
+    .shmear-list { margin-top: 8px; }
+    .shmear-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 0; font-size: 0.88rem;
+    }
+    .shmear-tag {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 3px;
+    }
+    .shmear-tag.classic { background: rgba(201,162,74,0.12); color: var(--gold-ink); }
+    .shmear-tag.seasonal { background: rgba(184,92,61,0.1); color: var(--sold-out); }
+
+    /* ===== SIGNATURE ===== */
+    .signature { background: var(--dark); padding: 120px 48px; }
+    .signature-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+      max-width: 1140px; margin: 0 auto;
+    }
+    .signature-image { aspect-ratio: 4/3; border-radius: 4px; overflow: hidden; }
+    .signature-image img { width: 100%; height: 100%; object-fit: cover; }
+    .signature-text .eyebrow { display: block; margin-bottom: 16px; }
+    .signature-text h2 {
+      font-size: clamp(2rem, 4vw, 3rem); color: #fff;
+      margin-bottom: 24px; line-height: 1.15;
+    }
+    .signature-text p {
+      color: rgba(255,255,255,0.72); font-size: 1.05rem;
+      line-height: 1.75; margin-bottom: 32px;
+    }
+    .signature-price {
+      font-family: 'Young Serif', serif;
+      font-size: 3.5rem; font-weight: 700; color: var(--gold-ink);
+    }
+
+    /* ===== FIND US ===== */
+    .find-us {
+      background: var(--dark); padding: 120px 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .find-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr;
+      gap: 72px; align-items: center;
+      max-width: 1140px; margin: 0 auto;
+    }
+    .find-text .eyebrow { display: block; margin-bottom: 16px; }
+    .find-text h2 {
+      font-size: clamp(2rem, 4vw, 3rem); color: #fff;
+      margin-bottom: 24px; line-height: 1.15;
+    }
+    .find-text > p {
+      color: rgba(255,255,255,0.72); font-size: 1.05rem;
+      line-height: 1.75; margin-bottom: 36px;
+    }
+    .find-details { display: flex; flex-direction: column; gap: 20px; }
+    .find-detail { display: flex; align-items: flex-start; gap: 16px; }
+    .find-icon {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(201,162,74,0.15);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .find-icon svg { width: 16px; height: 16px; fill: var(--gold); }
+    .find-detail-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 4px;
+    }
+    .find-detail-value { font-size: 0.95rem; color: rgba(255,255,255,0.85); }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--cream); padding: 80px 48px 48px; text-align: center; }
+    .footer-ornament { width: 96px; height: auto; margin: 0 auto 26px; opacity: 0.85; }
+    footer img { width: 160px; display: block; margin: 0 auto 12px; }
+    .footer-tag {
+      font-style: italic; font-size: 0.95rem;
+      color: var(--text-muted); margin-bottom: 32px;
+    }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); opacity: 0.7; }
+
+    /* ===== CLOSED OVERLAY ===== */
+    .closed-notice {
+      background: rgba(184,92,61,0.06);
+      border: 1px solid rgba(184,92,61,0.15);
+      border-radius: 8px; padding: 24px 28px;
+      text-align: center; margin-bottom: 32px;
+    }
+    .closed-notice h4 {
+      font-size: 1.1rem; color: var(--sold-out); margin-bottom: 8px;
+    }
+    .closed-notice p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* ===== CONFIRMATION ===== */
+    .confirmation {
+      display: none;
+      background: rgba(90,138,90,0.06);
+      border: 1px solid rgba(90,138,90,0.2);
+      border-radius: 8px; padding: 40px; text-align: center;
+    }
+    .confirmation.shown { display: block; }
+    .confirmation h3 {
+      font-size: 1.5rem; color: var(--available); margin-bottom: 16px;
+    }
+    .confirmation p { color: var(--text-muted); margin-bottom: 8px; }
+    .confirmation .conf-detail {
+      font-family: 'Young Serif', serif;
+      font-size: 1.2rem; color: var(--text); margin: 16px 0;
+    }
+
+    /* ===== FIND US: hours + map ===== */
+    .find-grid { grid-template-columns: 1.15fr 1fr; }
+
+    .find-map {
+      background: var(--dark-soft);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
+      overflow: hidden;
+      align-self: start;
+    }
+    .find-map iframe {
+      display: block; width: 100%; height: 340px; border: 0;
+      filter: saturate(0.85);
+    }
+    .map-caption {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 16px 20px;
+    }
+    .map-sub { font-size: 0.88rem; color: rgba(255,255,255,0.7); margin-top: 4px; }
+    .map-link {
+      flex-shrink: 0; white-space: nowrap;
+      font-size: 0.85rem; font-weight: 600; text-decoration: none;
+      color: var(--dark); background: var(--gold);
+      padding: 10px 16px; border-radius: 6px;
+      transition: background 0.15s ease;
+    }
+    .map-link:hover { background: var(--gold-bright); }
+
+    .farm-hours {
+      margin-top: 34px; padding-top: 26px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+    }
+    .hours-list { margin: 14px 0 0; }
+    .hours-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 16px; padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.95rem;
+    }
+    .hours-row:last-of-type { border-bottom: none; }
+    .hours-row dt { color: rgba(255,255,255,0.85); }
+    .hours-row dd {
+      margin: 0; color: #fff; font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .hours-row.is-closed dt, .hours-row.is-closed dd { color: rgba(255,255,255,0.45); }
+    .hours-note {
+      font-size: 0.8rem; color: rgba(255,255,255,0.55);
+      margin-top: 14px; line-height: 1.6;
+    }
+
+    /* ===== CATERING ===== */
+    .catering { background: var(--dark); padding: 120px 48px; }
+    .catering-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+      max-width: 1140px; margin: 0 auto;
+    }
+    .catering-text .eyebrow { display: block; margin-bottom: 16px; }
+    .catering-text h2 {
+      font-size: clamp(2rem, 4vw, 3rem); color: #fff;
+      margin-bottom: 24px; line-height: 1.15;
+    }
+    .catering-text p {
+      color: rgba(255,255,255,0.72); font-size: 1.05rem;
+      line-height: 1.75; margin-bottom: 16px;
+    }
+    .catering-features {
+      list-style: none; padding: 0; margin: 28px 0 36px;
+    }
+    .catering-features li {
+      display: flex; align-items: flex-start; gap: 14px;
+      margin-bottom: 18px; color: rgba(255,255,255,0.85); font-size: 0.95rem;
+    }
+    .catering-features li .feat-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(201,162,74,0.18); display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 14px;
+    }
+    .catering-image { aspect-ratio: 4/3; border-radius: 4px; overflow: hidden; }
+    .catering-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ===== CONTACT ===== */
+    .contact { background: var(--cream-light); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: start;
+    }
+    .contact-info h3 { font-size: 1.4rem; margin-bottom: 12px; color: var(--text); }
+    .contact-info p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.7; }
+    .contact-info-detail {
+      display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px;
+    }
+    .contact-info-detail .info-icon {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(201,162,74,0.12); display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px;
+    }
+    .contact-info-detail .info-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold-ink); margin-bottom: 2px;
+    }
+    .contact-info-detail .info-value { font-size: 0.95rem; color: var(--text); }
+    .contact-form-card {
+      background: #fff; border-radius: 8px; padding: 40px;
+      box-shadow: 0 2px 24px rgba(28,26,24,0.06);
+    }
+    .contact-form-card h3 { font-size: 1.3rem; margin-bottom: 24px; color: var(--text); }
+    .contact-form-card .form-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .contact-form-card label {
+      display: block; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+    .contact-form-card input,
+    .contact-form-card select,
+    .contact-form-card textarea {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--divider); border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      color: var(--text); background: var(--cream-light);
+      margin-bottom: 16px; transition: border 0.2s ease;
+    }
+    .contact-form-card input:focus,
+    .contact-form-card select:focus,
+    .contact-form-card textarea:focus {
+      border-color: var(--gold-ink);
+    }
+    .contact-form-card textarea { resize: vertical; min-height: 100px; }
+    .contact-success {
+      display: none; background: rgba(90,138,90,0.06);
+      border: 1px solid rgba(90,138,90,0.2); border-radius: 8px;
+      padding: 24px; text-align: center; margin-top: 16px;
+    }
+    .contact-success.shown { display: block; }
+    .contact-success h4 { color: var(--available); margin-bottom: 8px; }
+    .contact-success p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      nav.scrolled { padding: 12px 24px; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute; top: 100%; left: 0; right: 0;
+        margin: 10px -24px 0;          /* cancel nav's horizontal padding */
+        flex-direction: column; gap: 0;
+        background: var(--cream);
+        border-top: 1px solid var(--divider);
+        box-shadow: 0 18px 30px rgba(28,26,24,0.18);
+        padding: 4px 24px 12px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        color: var(--text); font-size: 1rem; font-weight: 500;
+        padding: 13px 0; border-bottom: 1px solid var(--divider);
+      }
+      .nav-links a:last-child { border-bottom: none; }
+      .nav-links a:hover { color: var(--gold-ink); }
+      .nav-logo img { height: 60px; }
+      nav.scrolled .nav-logo img { height: 36px; }
+      section, .signature, .find-us, .catering { padding: 80px 24px; }
+      .story-grid, .signature-grid, .find-grid, .preorder-grid, .market-grid, .catering-grid, .contact-grid {
+        grid-template-columns: 1fr; gap: 48px;
+      }
+      .craft-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .nav-links { gap: 20px; }
+      .nav-links a { font-size: 0.8rem; }
+      .hero-content {
+        grid-template-columns: minmax(0, 1fr); gap: 44px;
+        padding: calc(var(--chrome-h, 163px) + 28px) 24px 72px;
+      }
+      .hero-art { order: 2; }
+      .hero-art img { max-width: 400px; }
+      .order-summary { position: static; }
+      footer { padding: 60px 24px 32px; }
+    }
+    @media (max-width: 560px) {
+      .craft-grid { grid-template-columns: 1fr; }
+      .nav-status { display: none; }   /* the announcement bar already says it */
+      .hero h1 { font-size: 2.25rem; }
+      .preorder-banner { flex-direction: column; text-align: center; }
+      .contact-form-card .form-row { grid-template-columns: 1fr; }
+      .announcement-banner { padding: 12px 20px; }
+      .announcement-banner p { font-size: 0.8rem; }
+    }
+
+    /* ===== ANNOUNCEMENT BANNER ===== */
+    .announcement-banner {
+      background: linear-gradient(135deg, var(--dark) 0%, #2A2520 100%);
+      border-bottom: 1px solid rgba(201,162,74,0.25);
+      padding: 14px 48px;
+      text-align: center;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 101;
+    }
+    .announcement-banner p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.88);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .announcement-banner strong {
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .announcement-banner .banner-tag {
+      display: inline-block;
+      background: rgba(201,162,74,0.18);
+      color: var(--gold);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 3px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .pickup-day:hover:not(:disabled) { transform: none; }
+    }
+  </style>
+<!-- Umami analytics -->
+<script defer src="https://analytics.ciderhouse.org/script.js" data-website-id="02344c5b-d579-4f9c-9ccc-fb7bd7e1e91d"></script>
+<script defer src="https://analytics.ciderhouse.org/recorder.js" data-website-id="02344c5b-d579-4f9c-9ccc-fb7bd7e1e91d"></script>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">
+      <img class="logo-default" src="assets/goldys-logo-horizontal.png" alt="Goldy's Bagels">
+      <img class="logo-scroll" src="assets/goldys-logo-horizontal-dark.png" alt="Goldy's Bagels">
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#story">Our Story</a>
+      <a href="#craft">The Craft</a>
+      <a href="#preorder">Preorder</a>
+      <a href="#market-menu">Market Menu</a>
+      <a href="#catering">Catering</a>
+      <a href="#find-us">Find Us</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="nav-status open" id="navStatus">Preorder</div>
+      <button class="btn-account" id="btnAccount" onclick="toggleAccount()" aria-label="Account">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+        </svg>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== ANNOUNCEMENT BANNER ===== -->
+  <div class="announcement-banner" id="announcementBanner">
+    <p><span class="banner-tag">Now baking</span> Order for <strong>Blue Sky Organic Farms</strong> pickup — Wednesday through Saturday in Litchfield Park.</p>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-copy">
+        <h1>You're not supposed to be able to get these here.</h1>
+        <p>We know. We've heard it. Heck, we've said it. We've been saying it for 35 years — until now. And, lucky you, we're sharing.</p>
+        <a href="#preorder" class="btn">Reserve Your Bagels →</a>
+      </div>
+      <div class="hero-art">
+        <img src="assets/hero-silo.png" alt="Three bagels — sesame, everything and plain" width="1200" height="800" decoding="async">
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== OUR STORY ===== -->
+  <section id="story" class="story">
+    <div class="section-inner">
+      <div class="story-grid">
+        <div class="story-text fade-up">
+          <span class="eyebrow">Our Story</span>
+          <h2>From the East Coast to a bagel desert.</h2>
+          <p>Bagels were everywhere on the east coast — and they were good. Growing up Jewish, they were woven into the rhythm of the week. Every Sunday morning, every family gathering, every quick bite on the way to school. It wasn't just food. It was home.</p>
+          <p>Then, in the 1990s, our whole family picked up our roots and moved to Arizona. It wasn't just a literal desert — it was a bagel desert. What passed for a bagel out here was a roll with a hole in it. No chew. No crust. No soul.</p>
+          <p>So we learned to make our own. Step by step. What started as homesickness became a craft — decades of perfecting the old way, until friends and neighbors started asking when we were going to sell them.</p>
+          <p>We're a multigenerational family of ten, spread across three houses right here in Verrado. The adults all have day jobs and kids to chase after. This isn't a bakery — it's a labor of love. We make bagels that are too good not to share with our community. The bagel desert is over.</p>
+        </div>
+        <div class="story-image fade-up">
+          <img src="assets/story-bagels.jpg" alt="A golden bagel fresh from the oven" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== THE CRAFT ===== -->
+  <section id="craft" class="craft">
+    <div class="section-inner">
+      <div class="section-header fade-up">
+        <span class="eyebrow">The Craft</span>
+        <h2>No shortcuts. Just the old way.</h2>
+        <p>Every Goldy's bagel is hand-rolled and cold-fermented before it ever sees the oven. Here's what goes into each one.</p>
+      </div>
+      <div class="craft-grid">
+        <div class="craft-step fade-up">
+          <div class="craft-number">01</div>
+          <h3>The Dough</h3>
+          <p>High-gluten USA wheat flour, kosher salt, dark brown sugar, yeast, water, and oil. Simple ingredients, exacting ratios.</p>
+        </div>
+        <div class="craft-step fade-up">
+          <div class="craft-number">02</div>
+          <h3>Hand-Rolled</h3>
+          <p>Each bagel is shaped by hand the old way — no machines, no extruders. Every one is a little different, and that's the point.</p>
+        </div>
+        <div class="craft-step fade-up">
+          <div class="craft-number">03</div>
+          <h3>Cold Ferment</h3>
+          <p>The shaped dough rests in the cold. That slow ferment builds the flavor, the chew, and the character.</p>
+        </div>
+        <div class="craft-step fade-up">
+          <div class="craft-number">04</div>
+          <h3>Boil &amp; Bake</h3>
+          <p>We shock the proofed dough in boiling malted water, then bake on stone. Ready to shmear in minutes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY ===== -->
+  <section id="gallery" class="gallery">
+    <div class="section-inner">
+      <div class="section-header fade-up">
+        <span class="eyebrow">From the kitchen</span>
+        <h2>Straight off the rack.</h2>
+        <p>Hand-rolled, cold-fermented, stone-baked — a few from this week.</p>
+      </div>
+      <div class="gallery-grid fade-up">
+        <figure class="gallery-item"><img src="assets/gallery-1.jpg" alt="A Goldy's Bagels box filled with fresh bagels" loading="lazy" decoding="async"></figure>
+        <figure class="gallery-item"><img src="assets/gallery-2.jpg" alt="Freshly baked plain and everything bagels" loading="lazy" decoding="async"></figure>
+        <figure class="gallery-item"><img src="assets/gallery-3.jpg" alt="Goldy's shmear and bagels on a marble counter" loading="lazy" decoding="async"></figure>
+        <figure class="gallery-item"><img src="assets/gallery-4.jpg" alt="Bagels cooling on the rack" loading="lazy" decoding="async"></figure>
+        <figure class="gallery-item"><img src="assets/gallery-5.jpg" alt="Close-up of a sesame bagel fresh from the oven" loading="lazy" decoding="async"></figure>
+        <figure class="gallery-item item-top"><img src="assets/gallery-6.jpg" alt="Assorted bagels with Goldy's shmear on the counter" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PREORDER ===== -->
+  <section id="preorder" class="preorder">
+    <div class="section-inner">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Preorder</span>
+        <h2>Reserve your bagels.</h2>
+        <p>Pick your bagels, choose a day at Blue Sky Organic Farms, and we'll have them ready under your name. We need two farm days' notice — order Thursday for Saturday, or Friday for the following Wednesday. Up to two dozen per order, any mix of Plain, Salt, Sesame and Everything.</p>
+      </div>
+
+      <!-- Status banner -->
+      <div class="preorder-banner fade-up" id="preorderBanner">
+        <div class="preorder-banner-left">
+          <div class="status-dot open" id="statusDot"></div>
+          <div>
+            <h3 id="bannerTitle">Ordering for Blue Sky pickup</h3>
+            <div class="banner-sub" id="bannerSub">Wednesday–Saturday · Litchfield Park, AZ</div>
+          </div>
+        </div>
+        <div class="countdown" id="countdown">—</div>
+      </div>
+
+      <!-- Closed notice (hidden by default) -->
+      <div class="closed-notice" id="closedNotice" style="display:none">
+        <h4>Ordering is paused</h4>
+        <p id="closedMsg">Every day on the board is full. Check back soon — we open new days as we bake them.</p>
+      </div>
+
+      <div class="preorder-grid" id="orderForm">
+        <!-- LEFT: selection -->
+        <div>
+          <!-- Step 1: pick your bagels -->
+          <div class="step-section" id="stepVarieties">
+            <h4>Pick your bagels</h4>
+            <p class="step-sub" id="stepVarietiesSub">Up to 2 dozen — any mix of Plain, Salt, Sesame and Everything</p>
+            <div class="variety-grid" id="varietyGrid"></div>
+            <div class="progress-wrap" id="progressWrap">
+              <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width:0%"></div>
+              </div>
+              <div class="progress-label" id="progressLabel">0/24 selected</div>
+            </div>
+          </div>
+
+          <!-- Step 2: choose a pickup day -->
+          <div class="step-section" id="stepPickup">
+            <h4>Choose your pickup day</h4>
+            <p class="step-sub">Blue Sky Organic Farms · we deliver Wednesday through Saturday</p>
+            <div class="pickup-row" id="pickupRow">
+              <p class="summary-empty">Loading pickup days…</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: summary + checkout -->
+        <div>
+          <div class="order-summary">
+            <h3>Your Order</h3>
+            <div id="summaryLines">
+              <p class="summary-empty">No bagels selected yet.</p>
+            </div>
+            <div class="summary-total" id="summaryTotal" style="display:none">
+              <span>Total</span>
+              <span class="total-price" id="totalPrice">$0</span>
+            </div>
+            <p class="price-note">$3 each · $10 for 4 · $15 half dozen · $25 dozen</p>
+
+            <div class="contact-fields" id="contactFields" style="display:none">
+              <div class="pickup-recap" id="pickupRecap"></div>
+
+              <label for="custName">Name</label>
+              <input type="text" id="custName" placeholder="Your name">
+              <label for="custPhone">Phone</label>
+              <input type="tel" id="custPhone" placeholder="(623) 555-0100">
+              <label for="custNotes">Notes (optional)</label>
+              <textarea id="custNotes" placeholder="Pickup time preference, special requests..."></textarea>
+
+              <div class="tip-section">
+                <label>Add a tip? 🙏</label>
+                <div class="tip-buttons" id="tipButtons">
+                  <button class="tip-btn selected" data-tip="0" onclick="selectTip(0)">No Tip</button>
+                  <button class="tip-btn" data-tip="10" onclick="selectTip(10)">10%</button>
+                  <button class="tip-btn" data-tip="15" onclick="selectTip(15)">15%</button>
+                  <button class="tip-btn" data-tip="20" onclick="selectTip(20)">20%</button>
+                </div>
+                <div class="tip-display" id="tipDisplay" style="display:none">
+                  <span>Tip: <strong id="tipAmount">$0</strong></span>
+                  <span class="grand-total">Total: <strong id="grandTotal">$0</strong></span>
+                </div>
+              </div>
+
+              <button class="btn" style="width:100%;margin-top:8px" id="checkoutBtn" onclick="checkoutWithStripe()" disabled>
+                Checkout →
+              </button>
+              <p style="font-size:0.75rem;color:var(--text-muted);margin-top:12px;text-align:center">
+                Secure payment via Stripe. Pickup at Blue Sky Organic Farms, Litchfield Park AZ.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmation -->
+      <div class="confirmation" id="confirmation">
+        <h3>✓ Order Confirmed!</h3>
+        <div class="conf-detail" id="confDetail"></div>
+        <p id="confPickup"></p>
+        <p style="margin-top:16px">We'll have your bagels ready under your name at Blue Sky Organic Farms.</p>
+        <button class="btn btn-secondary" style="margin-top:24px" onclick="resetOrder()">Place Another Order</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARKET MENU ===== -->
+  <section id="market-menu" class="market-menu">
+    <div class="section-inner">
+      <div class="section-header fade-up">
+        <span class="eyebrow">At the Market</span>
+        <h2>What we're serving.</h2>
+        <p>What we bring to the farm — shmears, sandwiches, and plain bagels to go. Walk-ups are first come, first served until it sells out.</p>
+      </div>
+      <div class="market-grid">
+        <div class="market-card fade-up">
+          <h3>By the Bagel</h3>
+          <p class="card-sub">Fresh from the stone — your way.</p>
+          <div class="market-item">
+            <img class="chip-thumb" src="assets/thumbs/bagel-plain.png" alt="Plain Bagel" loading="lazy" decoding="async">
+            <div class="market-item-info">
+              <div class="market-item-name">Plain Bagel</div>
+              <div class="market-item-desc">Just the bagel. Any variety.</div>
+            </div>
+            <div class="market-item-price">$2</div>
+          </div>
+          <div class="market-item">
+            <img class="chip-thumb" src="assets/thumbs/bagel-with-shmear.png" alt="Bagel with Shmear" loading="lazy" decoding="async">
+            <div class="market-item-info">
+              <div class="market-item-name">Bagel with Shmear</div>
+              <div class="market-item-desc">Your bagel, generously schmeared.</div>
+            </div>
+            <div class="market-item-price">$4</div>
+          </div>
+          <div class="market-item">
+            <img class="chip-thumb" src="assets/thumbs/egg-cheese-bagel.png" alt="Egg & Cheese Bagel" loading="lazy" decoding="async">
+            <div class="market-item-info">
+              <div class="market-item-name">Egg &amp; Cheese Bagel</div>
+              <div class="market-item-desc">A classic breakfast sandwich, hot off the board.</div>
+            </div>
+            <div class="market-item-price">$8</div>
+          </div>
+          <p class="market-note">Add bacon or sausage — $2</p>
+        </div>
+
+        <div class="market-card fade-up">
+          <h3>This Week's Shmears</h3>
+          <p class="card-sub">Hand-mixed in small batches. Rotates weekly.</p>
+          <div class="shmear-list" id="shmearList">
+            <!-- rendered dynamically by JS -->
+          </div>
+          <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--divider)">
+            <div class="market-item">
+              <img class="chip-thumb" src="assets/thumbs/nova-lox.png" alt="Loaded Nova Lox" loading="lazy" decoding="async">
+              <div class="market-item-info">
+                <div class="market-item-name">Loaded Nova Lox</div>
+                <div class="market-item-desc">Everything bagel, lox shmear, smoked salmon, capers, red onion, dill.</div>
+              </div>
+              <div class="market-item-price">$12</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SIGNATURE ===== -->
+  <section class="signature">
+    <div class="signature-grid">
+      <div class="signature-image fade-up">
+        <img src="assets/lox-bagel.png" alt="Loaded Nova Lox bagel with smoked salmon, capers, and red onion" loading="lazy" decoding="async">
+      </div>
+      <div class="signature-text fade-up">
+        <span class="eyebrow">The Signature</span>
+        <h2>Loaded Nova Lox</h2>
+        <p>An everything bagel, schmeared with cream cheese, stacked with silky smoked salmon, red onion, capers, and fresh dill. This is the one we'd eat every day if we could.</p>
+        <div class="signature-price">$12</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FIND US ===== -->
+  <section id="find-us" class="find-us">
+    <div class="find-grid">
+      <div class="find-text fade-up">
+        <span class="eyebrow">Find Us</span>
+        <h2>At Blue Sky Organic Farms.</h2>
+        <p>We deliver fresh to Blue Sky Organic Farms on Wednesday through Saturday, baked right here in Buckeye with locally sourced ingredients whenever we can. Preorder online and just give us your name — walk-ups are first-come, first-served until it sells out.</p>
+
+        <div class="find-details">
+          <div class="find-detail">
+            <div class="find-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+            </div>
+            <div>
+              <div class="find-detail-label">Where</div>
+              <div class="find-detail-value">4762 N 189th Ave<br>Litchfield Park, AZ 85340</div>
+            </div>
+          </div>
+          <div class="find-detail">
+            <div class="find-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"/></svg>
+            </div>
+            <div>
+              <div class="find-detail-label">Farm Store</div>
+              <div class="find-detail-value"><a href="tel:+16232664031">(623) 266-4031</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="farm-hours">
+          <div class="find-detail-label">Farm Store Hours</div>
+          <dl class="hours-list">
+            <div class="hours-row"><dt>Wednesday</dt><dd>12p – 5p</dd></div>
+            <div class="hours-row"><dt>Thursday</dt><dd>9a – 3p</dd></div>
+            <div class="hours-row"><dt>Friday</dt><dd>12p – 5p</dd></div>
+            <div class="hours-row"><dt>Saturday</dt><dd>9a – 3p</dd></div>
+            <div class="hours-row is-closed"><dt>Sunday – Tuesday</dt><dd>Closed</dd></div>
+          </dl>
+          <p class="hours-note">Four days a week through the growing season. The farm may shorten hours during the hottest part of summer — check their site before a long drive.</p>
+        </div>
+      </div>
+
+      <div class="find-map fade-up">
+        <iframe title="Map showing Blue Sky Organic Farms in Litchfield Park, Arizona"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-112.4723%2C33.4999%2C-112.4604%2C33.5078&amp;layer=mapnik&amp;marker=33.503848%2C-112.4663623"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-caption">
+          <div>
+            <div class="find-detail-label">Blue Sky Organic Farms</div>
+            <div class="map-sub">4762 N 189th Ave · Litchfield Park, AZ</div>
+          </div>
+          <a class="map-link" target="_blank" rel="noopener"
+             href="https://www.google.com/maps/dir/?api=1&amp;destination=4762%20N%20189th%20Ave%2C%20Litchfield%20Park%2C%20AZ%2085340">Directions →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CATERING ===== -->
+  <section id="catering" class="catering">
+    <div class="catering-grid">
+      <div class="catering-text fade-up">
+        <span class="eyebrow">Catering</span>
+        <h2>Bring Goldy's to your next event.</h2>
+        <p>Hosting a brunch, office meeting, birthday, or celebration? We'd love to bring our hand-rolled, cold-fermented bagels to your table. We work with you to build a custom menu that fits your group and your budget.</p>
+        <ul class="catering-features">
+          <li><span class="feat-icon">🥯</span><span>Fresh-baked bagel platters with your choice of varieties</span></li>
+          <li><span class="feat-icon">🧈</span><span>House-made shmear boards — classic, seasonal, or both</span></li>
+          <li><span class="feat-icon">🐟</span><span>Full Nova Lox spreads with all the fixings</span></li>
+          <li><span class="feat-icon">📦</span><span>Custom quantities for groups of 10 to 200+</span></li>
+        </ul>
+        <a href="#contact" class="btn">Request a Catering Quote →</a>
+      </div>
+      <div class="catering-image fade-up">
+        <img src="assets/catering-spread.jpg" alt="Boxed assortments of Goldy's bagels ready to go" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="contact">
+    <div class="section-inner">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Contact</span>
+        <h2>Get in touch.</h2>
+        <p>Questions about preorders, catering, or just want to say hi? Drop us a line and we'll get back to you as soon as we can.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info fade-up">
+          <h3>We'd love to hear from you.</h3>
+          <p>Whether it's a catering inquiry, a question about this week's menu, or feedback on your bagels — every message goes straight to our family.</p>
+          <div class="contact-info-detail">
+            <div class="info-icon">✉️</div>
+            <div>
+              <div class="info-label">Email</div>
+              <div class="info-value">info@goldysbagels.com</div>
+            </div>
+          </div>
+          <div class="contact-info-detail">
+            <div class="info-icon">📍</div>
+            <div>
+              <div class="info-label">Location</div>
+              <div class="info-value">Buckeye, Arizona</div>
+            </div>
+          </div>
+          <div class="contact-info-detail">
+            <div class="info-icon">🕐</div>
+            <div>
+              <div class="info-label">Pickup</div>
+              <div class="info-value">Wed–Sat at Blue Sky</div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-card fade-up">
+          <h3>Send us a message</h3>
+          <form id="contactForm" onsubmit="submitContact(event)">
+            <div class="form-row">
+              <div>
+                <label for="contactName">Name</label>
+                <input type="text" id="contactName" placeholder="Your name" required>
+              </div>
+              <div>
+                <label for="contactEmail">Email</label>
+                <input type="email" id="contactEmail" placeholder="you@example.com" required>
+              </div>
+            </div>
+            <label for="contactPhone">Phone (optional)</label>
+            <input type="tel" id="contactPhone" placeholder="(623) 555-0100">
+            <label for="contactSubject">Subject</label>
+            <select id="contactSubject" required>
+              <option value="" disabled selected>Choose a topic</option>
+              <option value="catering">Catering Inquiry</option>
+              <option value="preorder">Preorder Question</option>
+              <option value="feedback">Feedback</option>
+              <option value="wholesale">Wholesale</option>
+              <option value="other">Other</option>
+            </select>
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" placeholder="Tell us what's on your mind..." required></textarea>
+            <button type="submit" class="btn" style="width:100%" id="contactSubmitBtn">Send Message →</button>
+          </form>
+          <div class="contact-success" id="contactSuccess">
+            <h4>✓ Message Sent!</h4>
+            <p>Thanks for reaching out. We'll get back to you soon.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <img class="footer-ornament" src="assets/ornament-wreath.png" alt="" aria-hidden="true" width="900" height="943" loading="lazy" decoding="async">
+    <img src="assets/goldys-logo-stacked.png" alt="Goldy's Bagels" loading="lazy" decoding="async">
+    <div class="footer-tag">East coast tradition, baked in the desert.</div>
+    <div class="footer-copy">© Goldy's Bagels · Buckeye, Arizona · Est. with love in the 1990s</div>
+  </footer>
+
+<!-- ===== ACCOUNT MODAL ===== -->
+<div class="modal-overlay" id="authModal" onclick="if(event.target===this)closeAccount()">
+  <div class="modal-box" id="authModalBox">
+    <button class="modal-close" onclick="closeAccount()">×</button>
+    <div id="authLoggedOut">
+      <h3 id="authTitle">Log In</h3>
+      <div id="authFields">
+        <input type="text" id="authName" placeholder="Name" style="display:none">
+        <input type="email" id="authEmail" placeholder="Email">
+        <input type="tel" id="authPhone" placeholder="Phone" style="display:none">
+        <input type="password" id="authPassword" placeholder="Password">
+      </div>
+      <div class="auth-error" id="authError"></div>
+      <button class="btn-primary" onclick="submitAuth()" id="authSubmitBtn">Log In</button>
+      <button class="btn-link" onclick="toggleAuthMode()" id="authToggle">Create an account</button>
+    </div>
+    <div id="authLoggedIn" style="display:none">
+      <div class="user-info">
+        <div class="name" id="userName"></div>
+        <div class="email" id="userEmail"></div>
+        <div class="phone" id="userPhone"></div>
+      </div>
+      <button class="btn-link" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+</div>
+
+<script>
+    // ===== CONFIG =====
+    // Tiered pricing on the TOTAL bagel count:
+    //   1-3   -> $3.00 each
+    //   4-11  -> $2.50 each
+    //   12+   -> $25.00 per complete dozen, then $3.00 each over
+    const BAGEL_PRICE = 3;
+    const SMALL_TIER_PRICE = 2.5;
+    const DOZEN_PRICE = 25;
+    const MAX_BAGELS = 24;   // two dozen per order
+    const VARIETIES = ['Plain', 'Salt', 'Sesame', 'Everything'];
+    // A QR sign at the farm links here with ?src=farm, so an order taken in
+    // person is tagged as such instead of looking like an online order.
+    const CHANNEL = new URLSearchParams(window.location.search).get('src') === 'farm' ? 'farm' : 'web';
+
+    // ===== STATE =====
+    let SHMEARS = [];
+    let order = {};             // { variety: qty }
+    let pickupDays = [];        // from /api/pickup-days
+    let selectedPickup = null;  // 'YYYY-MM-DD'
+    let orderOpen = true;
+    let justOrdered = false;    // suppress the banner behind the confirmation
+
+    // ===== WEEKLY MENU (display only — ordering uses the four staples) =====
+    async function fetchWeeklyMenu() {
+      try {
+        const res = await fetch('/api/weekly-menu');
+        if (!res.ok) throw new Error('Failed to load menu');
+        SHMEARS = (await res.json()).shmears || [];
+      } catch(e) {
+        console.warn('Weekly menu API unavailable, using defaults', e);
+        SHMEARS = [
+          { name: 'Plain Cream Cheese', description: 'the foundation.', extra: { tags: ['Classic'] } },
+          { name: 'Lox Spread', description: 'smoked salmon, capers, dill, onion.', extra: { tags: ['Classic'] } },
+          { name: 'Arizona Citrus & Honey', description: 'local citrus zest, desert honey.', extra: { tags: ['Seasonal'] } },
+          { name: 'Jalape\u00f1o Cheddar', description: 'roasted green chiles, sharp cheddar.', extra: { tags: ['Seasonal'] } },
+        ];
+      }
+      renderShmears();
+    }
+
+    // ===== PICKUP DAYS =====
+    async function fetchPickupDays() {
+      try {
+        const res = await fetch('/api/pickup-days');
+        if (!res.ok) throw new Error('pickup days unavailable');
+        pickupDays = (await res.json()).pickup_days || [];
+      } catch(e) {
+        console.warn('Pickup days unavailable', e);
+        pickupDays = [];
+      }
+      renderPickupDays();
+      updateStatus();
+    }
+
+    // Parse YYYY-MM-DD as a *local* date: new Date('2026-11-13') is UTC
+    // midnight, which is still the 12th in Arizona.
+    function parseLocal(iso) {
+      const [y, m, d] = iso.split('-').map(Number);
+      return new Date(y, m - 1, d);
+    }
+    function fmtDate(iso) {
+      return parseLocal(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+    function fmtLong(iso) {
+      return parseLocal(iso).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    }
+
+    function renderPickupDays() {
+      const row = document.getElementById('pickupRow');
+      if (!row) return;
+
+      if (!pickupDays.length) {
+        row.innerHTML = '<p class="summary-empty">No pickup days available right now \u2014 check back soon.</p>';
+        updateSummary();
+        return;
+      }
+
+      // Default to the earliest day that still has room.
+      if (!selectedPickup || !pickupDays.some(d => d.date === selectedPickup && !d.full)) {
+        const first = pickupDays.find(d => !d.full);
+        selectedPickup = first ? first.date : null;
+      }
+
+      row.innerHTML = pickupDays.map(d => `
+        <button type="button" class="pickup-day${d.date === selectedPickup ? ' selected' : ''}"
+                id="pd-${d.date}" ${d.full ? 'disabled' : ''}
+                aria-pressed="${d.date === selectedPickup}"
+                onclick="selectPickup('${d.date}')">
+          <span class="pd-day">${d.weekday}${d.earliest ? ' \u00b7 earliest' : ''}</span>
+          <span class="pd-date">${fmtDate(d.date)}</span>
+          <span class="pd-left">${d.full ? 'Full' : d.remaining + ' left'}</span>
+        </button>`).join('');
+      updateSummary();
+    }
+
+    function selectPickup(date) {
+      selectedPickup = date;
+      document.querySelectorAll('.pickup-day').forEach(b => {
+        const on = b.id === 'pd-' + date;
+        b.classList.toggle('selected', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+      updateSummary();
+    }
+
+    function updateStatus() {
+      const navStatus = document.getElementById('navStatus');
+      const banner = document.getElementById('preorderBanner');
+      const closedNotice = document.getElementById('closedNotice');
+      const orderForm = document.getElementById('orderForm');
+      const statusDot = document.getElementById('statusDot');
+      const bannerTitle = document.getElementById('bannerTitle');
+      const bannerSub = document.getElementById('bannerSub');
+      const countdown = document.getElementById('countdown');
+
+      const openDay = pickupDays.find(d => !d.full);
+      orderOpen = !!openDay;
+
+      if (orderOpen) {
+        navStatus.textContent = 'Preorders Open';
+        navStatus.className = 'nav-status open';
+        banner.style.display = justOrdered ? 'none' : 'flex';
+        closedNotice.style.display = 'none';
+        orderForm.style.opacity = '1';
+        orderForm.style.pointerEvents = 'auto';
+        statusDot.className = 'status-dot open';
+        bannerTitle.textContent = 'Ordering for Blue Sky pickup';
+        bannerSub.textContent = 'Two farm days\u2019 notice \u00b7 Wed\u2013Sat, Litchfield Park AZ';
+        countdown.textContent = 'Earliest: ' + fmtLong(openDay.date);
+      } else {
+        navStatus.textContent = 'Preorders Closed';
+        navStatus.className = 'nav-status closed';
+        banner.style.display = 'none';
+        closedNotice.style.display = 'block';
+        orderForm.style.opacity = '0.5';
+        orderForm.style.pointerEvents = 'none';
+        document.getElementById('closedMsg').textContent =
+          'Every day on the board is full. Check back soon \u2014 we open new days as we bake them.';
+      }
+    }
+
+    function escHtml(s) {
+      const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML;
+    }
+
+    /* ===== AUTH ===== */
+    let authToken = localStorage.getItem('goldys_auth_token') || '';
+    let authMode = 'login'; // or 'register'
+    let authUser = null;
+
+    if (authToken) checkAuth();
+
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/auth/me', { headers: { 'X-Auth-Token': authToken } });
+        if (!res.ok) { logout(); return; }
+        authUser = await res.json();
+        updateAuthUI();
+      } catch { logout(); }
+    }
+
+    function updateAuthUI() {
+      const btn = document.getElementById('btnAccount');
+      if (authUser) {
+        const initials = (authUser.name || authUser.email || '?')[0].toUpperCase();
+        btn.innerHTML = `<span style="font-weight:700;font-size:13px">${escHtml(initials)}</span>`;
+        btn.style.background = 'var(--gold)';
+        btn.style.borderColor = 'var(--gold)';
+        // Pre-fill checkout
+        if (document.getElementById('custName')) document.getElementById('custName').value = authUser.name || '';
+        if (document.getElementById('custPhone')) document.getElementById('custPhone').value = authUser.phone || '';
+      } else {
+        btn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>';
+        btn.style.background = '';
+        btn.style.borderColor = '';
+      }
+    }
+
+    function toggleAccount() {
+      const modal = document.getElementById('authModal');
+      if (authUser) {
+        document.getElementById('userName').textContent = authUser.name || 'No name';
+        document.getElementById('userEmail').textContent = authUser.email || '';
+        document.getElementById('userPhone').textContent = authUser.phone || '';
+        document.getElementById('authLoggedOut').style.display = 'none';
+        document.getElementById('authLoggedIn').style.display = 'block';
+      } else {
+        document.getElementById('authLoggedOut').style.display = 'block';
+        document.getElementById('authLoggedIn').style.display = 'none';
+      }
+      modal.classList.add('show');
+    }
+
+    function closeAccount() {
+      document.getElementById('authModal').classList.remove('show');
+    }
+
+    function toggleAuthMode() {
+      authMode = authMode === 'login' ? 'register' : 'login';
+      document.getElementById('authTitle').textContent = authMode === 'login' ? 'Log In' : 'Create Account';
+      document.getElementById('authSubmitBtn').textContent = authMode === 'login' ? 'Log In' : 'Create Account';
+      document.getElementById('authToggle').textContent = authMode === 'login' ? 'Create an account' : 'Already have an account? Log in';
+      document.getElementById('authName').style.display = authMode === 'register' ? 'block' : 'none';
+      document.getElementById('authPhone').style.display = authMode === 'register' ? 'block' : 'none';
+      document.getElementById('authError').style.display = 'none';
+    }
+
+    async function submitAuth() {
+      const email = document.getElementById('authEmail').value.trim();
+      const password = document.getElementById('authPassword').value;
+      const name = document.getElementById('authName').value.trim();
+      const phone = document.getElementById('authPhone').value.trim();
+      const errEl = document.getElementById('authError');
+      errEl.style.display = 'none';
+
+      if (!email || !password) { errEl.textContent = 'Email and password required.'; errEl.style.display = 'block'; return; }
+      if (authMode === 'register' && (!name || !phone)) { errEl.textContent = 'Name and phone required.'; errEl.style.display = 'block'; return; }
+
+      try {
+        const endpoint = authMode === 'login' ? '/api/auth/login' : '/api/auth/register';
+        const body = { email, password };
+        if (authMode === 'register') { body.name = name; body.phone = phone; }
+        const res = await fetch(endpoint, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok) { const d = await res.json(); throw new Error(d.detail || 'Auth failed'); }
+        const data = await res.json();
+        authToken = data.token;
+        localStorage.setItem('goldys_auth_token', authToken);
+        authUser = { id: data.id, name: data.name, email: data.email, phone: data.phone };
+        updateAuthUI();
+        closeAccount();
+      } catch (e) {
+        errEl.textContent = e.message;
+        errEl.style.display = 'block';
+      }
+    }
+
+    function logout() {
+      authToken = '';
+      authUser = null;
+      localStorage.removeItem('goldys_auth_token');
+      updateAuthUI();
+      closeAccount();
+    }
+
+    function renderShmears() {
+      const list = document.getElementById('shmearList');
+      if (!list) return;
+      list.innerHTML = (SHMEARS || []).map(s => {
+        const tags = (s.extra && s.extra.tags) || [];
+        const tagClass = tags.some(t => t.toLowerCase() === 'seasonal') ? 'seasonal' : 'classic';
+        const thumbSlug = s.name.toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        const thumbSrc = `assets/thumbs/shmear-${thumbSlug}.png`;
+        return `
+        <div class="shmear-item">
+          ${tags.map(t => `<span class="shmear-tag ${tagClass}">${escHtml(t)}</span>`).join('')}
+          <img class="chip-thumb" src="${thumbSrc}" alt="${escHtml(s.name)}" onerror="this.style.display='none'" loading="lazy" decoding="async">
+          <span><strong>${escHtml(s.name)}</strong>${s.description ? ' — ' + escHtml(s.description) : ''}</span>
+        </div>
+        `;
+      }).join('');
+    }
+
+    // ===== ORDER BUILDER =====
+    // One box, up to 24 bagels, split across the four staples however you like.
+    function renderVarieties() {
+      const grid = document.getElementById('varietyGrid');
+      grid.innerHTML = VARIETIES.map(v => `
+        <div class="variety-chip" data-variety="${v}">
+          <span class="chip-name">${v}</span>
+          <div class="chip-qty">
+            <button type="button" class="qty-btn" aria-label="One fewer ${v}"
+                    onclick="changeQty('${v}', -1)" disabled>\u2212</button>
+            <span class="chip-count" id="count-${v}">0</span>
+            <button type="button" class="qty-btn" aria-label="One more ${v}"
+                    onclick="changeQty('${v}', 1)">+</button>
+          </div>
+        </div>`).join('');
+    }
+
+    function getTotalBagels() {
+      return Object.values(order).reduce((a, b) => a + b, 0);
+    }
+
+    function getRemaining() {
+      return Math.max(0, MAX_BAGELS - getTotalBagels());
+    }
+
+    function updateProgress() {
+      const picked = getTotalBagels();
+      const remaining = getRemaining();
+      const pct = (picked / MAX_BAGELS) * 100;
+      document.getElementById('progressFill').style.width = Math.min(pct, 100) + '%';
+      document.getElementById('progressLabel').textContent = `${picked}/${MAX_BAGELS} selected`;
+      document.getElementById('stepVarietiesSub').textContent = remaining > 0
+        ? `Choose up to ${remaining} more`
+        : 'That\u2019s a full two dozen';
+    }
+
+    function changeQty(variety, delta) {
+      const current = order[variety] || 0;
+      const newQty = current + delta;
+      if (newQty < 0) return;
+      if (delta > 0 && getRemaining() <= 0) return;
+
+      order[variety] = newQty;
+      document.getElementById('count-' + variety).textContent = newQty;
+      const chip = document.querySelector(`[data-variety="${variety}"]`);
+      chip.classList.toggle('selected', newQty > 0);
+      chip.querySelector('.qty-btn:first-child').disabled = newQty === 0;
+
+      // A full box means no variety can take another bagel
+      const roomLeft = getRemaining() > 0;
+      document.querySelectorAll('.variety-chip').forEach(c => {
+        c.querySelector('.qty-btn:last-child').disabled = !roomLeft;
+      });
+
+      updateProgress();
+      updateSummary();
+    }
+
+    function calculateTotal(qty) {
+      if (qty <= 0) return 0;
+      if (qty <= 3) return qty * BAGEL_PRICE;
+      if (qty <= 11) return qty * SMALL_TIER_PRICE;
+      return Math.floor(qty / 12) * DOZEN_PRICE + (qty % 12) * BAGEL_PRICE;
+    }
+
+    // $12.50 rather than $12.5 — the middle tier lands on halves.
+    function formatMoney(n) {
+      return '$' + n.toFixed(2);
+    }
+
+    function updateSummary() {
+      const total = getTotalBagels();
+      const summaryLines = document.getElementById('summaryLines');
+      const summaryTotal = document.getElementById('summaryTotal');
+      const contactFields = document.getElementById('contactFields');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const recap = document.getElementById('pickupRecap');
+
+      if (total === 0) {
+        summaryLines.innerHTML = '<p class="summary-empty">No bagels selected yet.</p>';
+        summaryTotal.style.display = 'none';
+        contactFields.style.display = 'none';
+        checkoutBtn.disabled = true;
+        return;
+      }
+
+      const lines = VARIETIES.filter(v => order[v] > 0)
+        .map(v => `
+          <div class="summary-line">
+            <span class="line-name">${v} \u00d7${order[v]}</span>
+          </div>
+        `).join('');
+      summaryLines.innerHTML = lines ||
+        '<p class="summary-empty">Distribute your bagels above.</p>';
+
+      document.getElementById('totalPrice').textContent = formatMoney(calculateTotal(total));
+      summaryTotal.style.display = 'flex';
+      contactFields.style.display = 'block';
+
+      if (recap) {
+        recap.innerHTML = selectedPickup
+          ? `Pickup: <strong>${fmtLong(selectedPickup)}</strong> \u00b7 Blue Sky Organic Farms`
+          : 'Choose a pickup day above.';
+      }
+
+      checkoutBtn.disabled = !orderOpen || !selectedPickup;
+      updateTipDisplay();
+    }
+
+    let selectedTipPct = 0;
+
+    function selectTip(pct) {
+      selectedTipPct = pct;
+      document.querySelectorAll('.tip-btn').forEach(btn => {
+        btn.classList.toggle('selected', parseInt(btn.dataset.tip) === pct);
+      });
+      updateTipDisplay();
+    }
+
+    function updateTipDisplay() {
+      const total = getTotalBagels();
+      if (total === 0) return;
+
+      const subtotal = calculateTotal(total);
+      const tip = Math.round(subtotal * selectedTipPct / 100);
+      const grandTotal = subtotal + tip;
+
+      const display = document.getElementById('tipDisplay');
+      if (selectedTipPct > 0) {
+        display.style.display = 'flex';
+        document.getElementById('tipAmount').textContent = formatMoney(tip);
+        document.getElementById('grandTotal').textContent = formatMoney(grandTotal);
+      } else {
+        display.style.display = 'none';
+      }
+    }
+
+    async function checkoutWithStripe() {
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      if (!name || !phone) {
+        alert('Please enter your name and phone number.');
+        return;
+      }
+
+      const total = getTotalBagels();
+      if (total === 0) return;
+      if (!selectedPickup) {
+        alert('Please choose a pickup day.');
+        return;
+      }
+
+      const subtotal = calculateTotal(total);
+      const tipAmount = Math.round(subtotal * selectedTipPct / 100);
+      const items = VARIETIES.filter(v => order[v] > 0)
+        .map(v => ({ name: v, quantity: order[v] }));
+
+      const btn = document.getElementById('checkoutBtn');
+      btn.textContent = 'Redirecting to Stripe...';
+      btn.disabled = true;
+
+      try {
+        const resp = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            phone: phone,
+            notes: document.getElementById('custNotes').value.trim(),
+            items: items,
+            total_bagels: total,
+            subtotal: subtotal,
+            tip_amount: tipAmount,
+            user_id: authUser ? authUser.id : undefined,
+            pickup_date: selectedPickup,
+            channel: CHANNEL,
+          }),
+        });
+
+        if (!resp.ok) {
+          const err = await resp.json();
+          throw new Error(err.detail || 'Checkout failed');
+        }
+
+        // The page reloads after Stripe, so remember what we promised.
+        sessionStorage.setItem('goldys_pickup', selectedPickup);
+        const data = await resp.json();
+        window.location.href = data.url;
+      } catch (err) {
+        alert('Something went wrong: ' + err.message);
+        btn.textContent = 'Checkout \u2192';
+        btn.disabled = false;
+        updateSummary();
+      }
+    }
+
+    function resetOrder() {
+      order = {};
+      VARIETIES.forEach(v => {
+        const chip = document.querySelector(`[data-variety="${v}"]`);
+        if (!chip) return;
+        chip.classList.remove('selected');
+        chip.querySelector('.chip-count').textContent = '0';
+        chip.querySelector('.qty-btn:first-child').disabled = true;
+        chip.querySelector('.qty-btn:last-child').disabled = false;
+      });
+
+      selectedPickup = null;
+      renderPickupDays();
+
+      document.getElementById('custName').value = '';
+      document.getElementById('custPhone').value = '';
+      document.getElementById('custNotes').value = '';
+      document.getElementById('confirmation').classList.remove('shown');
+      document.getElementById('orderForm').style.display = 'grid';
+      if (orderOpen) document.getElementById('preorderBanner').style.display = 'flex';
+
+      updateProgress();
+      updateSummary();
+    }
+
+    // ===== NAV SCROLL =====
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ===== CHROME OFFSET =====
+    // The announcement banner is fixed and grows taller as its text wraps, but the
+    // nav's offset used to be a hardcoded 48/42px — so on narrow screens the banner
+    // sat on top of the logo. Measure the real heights instead of guessing.
+    const bannerEl = document.querySelector('.announcement-banner');
+    const measureChrome = () => {
+      const bannerH = bannerEl ? bannerEl.offsetHeight : 48;
+      document.documentElement.style.setProperty('--banner-h', bannerH + 'px');
+      document.documentElement.style.setProperty('--chrome-h', (bannerH + nav.offsetHeight) + 'px');
+    };
+    measureChrome();
+    window.addEventListener('resize', measureChrome);
+
+    // ===== NAV MENU (<=900px) =====
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    const setNavOpen = (open) => {
+      navLinks.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+    };
+    navToggle.addEventListener('click', () => {
+      setNavOpen(!navLinks.classList.contains('open'));
+    });
+    // choosing a section closes the panel
+    navLinks.addEventListener('click', (e) => {
+      if (e.target.closest('a')) setNavOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setNavOpen(false);
+    });
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target)) setNavOpen(false);
+    });
+
+    // ===== FADE-UP =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ===== INIT =====
+    renderVarieties();
+    updateProgress();
+    fetchWeeklyMenu();
+    fetchPickupDays();
+    updateSummary();
+
+    // ===== STRIPE REDIRECT HANDLING =====
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('status');
+      if (status === 'success') {
+        justOrdered = true;   // fetchPickupDays() runs updateStatus() later
+        const conf = document.getElementById('confirmation');
+        conf.classList.add('shown');
+        document.getElementById('orderForm').style.display = 'none';
+        document.getElementById('preorderBanner').style.display = 'none';
+        const pickup = sessionStorage.getItem('goldys_pickup');
+        document.getElementById('confPickup').textContent = pickup
+          ? 'Pickup: ' + fmtLong(pickup) + ' at Blue Sky Organic Farms, Litchfield Park AZ'
+          : 'We\u2019ll confirm your pickup day by text.';
+        conf.scrollIntoView({ behavior: 'smooth' });
+        sessionStorage.removeItem('goldys_pickup');
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } else if (status === 'cancelled') {
+        alert('Your payment was cancelled. Your order has not been placed.');
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    })();
+
+    // ===== CONTACT FORM =====
+    async function submitContact(e) {
+      e.preventDefault();
+      const btn = document.getElementById('contactSubmitBtn');
+      const origText = btn.textContent;
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      const body = {
+        name: document.getElementById('contactName').value.trim(),
+        email: document.getElementById('contactEmail').value.trim(),
+        phone: document.getElementById('contactPhone').value.trim(),
+        subject: document.getElementById('contactSubject').value,
+        message: document.getElementById('contactMessage').value.trim(),
+      };
+
+      try {
+        const resp = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if (!resp.ok) {
+          const err = await resp.json();
+          throw new Error(err.detail || 'Failed to send');
+        }
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('contactSuccess').classList.add('shown');
+      } catch (err) {
+        alert('Could not send message: ' + err.message);
+        btn.textContent = origText;
+        btn.disabled = false;
+      }
+    }
+
+  </script>
+
+</body>
+</html>

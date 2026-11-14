@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goldy's Bagels — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F5F1EA;
+      --cream-light: #FAF7F0;
+      --dark: #1C1A18;
+      --gold: #C9A24A;
+      --gold-bright: #D4A547;
+      --text: #2C2823;
+      --text-muted: #6B655C;
+      --divider: #E0DAD0;
+      --green: #5A8A5A;
+      --orange: #D4915E;
+      --red: #B85C3D;
+      --blue: #4A7A9A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Login screen */
+    #login {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 20px;
+    }
+    .login-card {
+      background: var(--cream-light); border-radius: 16px; padding: 40px;
+      max-width: 360px; width: 100%; text-align: center;
+      box-shadow: 0 2px 24px rgba(28,26,24,0.08);
+    }
+    .login-card h1 {
+      font-size: 22px; font-weight: 700; margin-bottom: 4px; color: var(--dark);
+    }
+    .login-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .login-card input {
+      width: 100%; padding: 12px 16px; border: 1px solid var(--divider);
+      border-radius: 8px; font-size: 15px; font-family: inherit;
+      background: white; color: var(--text); margin-bottom: 12px;
+    }
+    .login-card input:focus { outline: none; border-color: var(--gold); }
+    .login-card button {
+      width: 100%; padding: 12px; border: none; border-radius: 8px;
+      background: var(--gold); color: white; font-size: 15px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: background 0.2s;
+    }
+    .login-card button:hover { background: var(--gold-bright); }
+    .login-error { color: var(--red); font-size: 13px; margin-top: 8px; }
+
+    /* Dashboard */
+    #dashboard { display: none; }
+    .topbar {
+      background: var(--dark); color: white; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .topbar h1 { font-size: 18px; font-weight: 600; }
+    .topbar h1 span { color: var(--gold); }
+    .topbar .actions { display: flex; gap: 12px; align-items: center; }
+    .topbar .stats { font-size: 13px; color: rgba(255,255,255,0.6); }
+    .topbar .stats strong { color: var(--gold); }
+    .top-right { display: flex; gap: 12px; align-items: center; }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex; gap: 0; background: var(--dark);
+      padding: 0 24px; border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .tab-btn {
+      padding: 12px 24px; background: none; border: none;
+      color: rgba(255,255,255,0.5); font-size: 14px; font-weight: 500;
+      cursor: pointer; font-family: inherit; border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { color: rgba(255,255,255,0.8); }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .btn-refresh {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+      color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer;
+      font-size: 13px; font-family: inherit; transition: background 0.2s;
+    }
+    .btn-refresh:hover { background: rgba(255,255,255,0.2); }
+    .btn-logout {
+      background: none; border: none; color: rgba(255,255,255,0.5);
+      cursor: pointer; font-size: 13px; font-family: inherit;
+    }
+    .btn-logout:hover { color: rgba(255,255,255,0.8); }
+
+    /* Stats bar */
+    .stats-bar {
+      display: flex; gap: 16px; padding: 20px 24px; flex-wrap: wrap;
+    }
+    .stat-card {
+      background: var(--cream-light); border-radius: 12px; padding: 16px 20px;
+      flex: 1; min-width: 140px;
+    }
+    .stat-card .label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-card .value { font-size: 28px; font-weight: 700; color: var(--dark); margin-top: 4px; }
+    .stat-card .value.gold { color: var(--gold); }
+
+    /* Orders */
+    .orders-container { padding: 0 24px 40px; }
+    .filter-bar {
+      display: flex; gap: 8px; padding: 12px 0 20px; flex-wrap: wrap;
+    }
+    .filter-chip {
+      padding: 6px 14px; border-radius: 20px; border: 1px solid var(--divider);
+      background: white; font-size: 13px; cursor: pointer; font-family: inherit;
+      color: var(--text-muted); transition: all 0.2s;
+    }
+    .filter-chip.active { background: var(--dark); color: white; border-color: var(--dark); }
+    .filter-chip:hover { border-color: var(--gold); }
+
+    .order-card {
+      background: var(--cream-light); border-radius: 12px; padding: 20px;
+      margin-bottom: 12px; display: flex; gap: 20px; align-items: flex-start;
+      border: 1px solid transparent; transition: border-color 0.2s;
+    }
+    .order-card:hover { border-color: var(--divider); }
+    .order-main { flex: 1; min-width: 0; }
+    .order-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+    .order-id { font-size: 12px; color: var(--text-muted); font-family: monospace; }
+    .order-name { font-size: 16px; font-weight: 600; color: var(--dark); }
+    .order-phone { font-size: 13px; color: var(--text-muted); }
+    .order-date { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      text-transform: capitalize;
+    }
+    .status-pending     { background: #FFF3E0; color: #B87A20; }
+    .status-paid        { background: #E8F5E9; color: var(--green); }
+    .status-in_oven     { background: #FFF3E0; color: var(--orange); }
+    .status-ready       { background: #E3F2FD; color: var(--blue); }
+    .status-picked_up   { background: #F3E5F5; color: #8E5A9A; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    .order-items { font-size: 14px; color: var(--text); margin-bottom: 8px; }
+    .order-items .qty { color: var(--text-muted); }
+    .order-total { font-size: 15px; font-weight: 600; color: var(--gold); }
+    .order-notes { font-size: 13px; color: var(--text-muted); font-style: italic; margin-top: 4px; }
+
+    .order-actions { display: flex; flex-direction: column; gap: 6px; min-width: 140px; }
+    .status-btn {
+      padding: 8px 14px; border-radius: 8px; border: 1px solid var(--divider);
+      background: white; font-size: 13px; cursor: pointer; font-family: inherit;
+      color: var(--text); text-align: left; transition: all 0.15s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .status-btn:hover { border-color: var(--gold); background: var(--cream); }
+    .status-btn.current { background: var(--dark); color: white; border-color: var(--dark); }
+    .status-btn .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .status-btn[data-status="pending"] .dot    { background: #B87A20; }
+    .status-btn[data-status="paid"] .dot       { background: var(--green); }
+    .status-btn[data-status="in_oven"] .dot    { background: var(--orange); }
+    .status-btn[data-status="ready"] .dot      { background: var(--blue); }
+    .status-btn[data-status="picked_up"] .dot  { background: #8E5A9A; }
+
+    /* Weekly Menu */
+    .menu-container { padding: 20px 24px 40px; max-width: 800px; }
+    .menu-section { margin-bottom: 32px; }
+    .menu-section h2 {
+      font-size: 16px; font-weight: 600; color: var(--dark);
+      margin-bottom: 16px; padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .menu-item-row {
+      background: var(--cream-light); border-radius: 10px; padding: 14px 16px;
+      margin-bottom: 8px; display: flex; gap: 12px; align-items: center;
+      border: 1px solid var(--divider);
+    }
+    .menu-item-row .name-input {
+      flex: 1; min-width: 140px; padding: 6px 10px; border: 1px solid var(--divider);
+      border-radius: 6px; font-size: 14px; font-family: inherit;
+      background: white; color: var(--text);
+    }
+    .menu-item-row .name-input:focus { outline: none; border-color: var(--gold); }
+    .menu-item-row .desc-input {
+      flex: 2; min-width: 180px; padding: 6px 10px; border: 1px solid var(--divider);
+      border-radius: 6px; font-size: 13px; font-family: inherit;
+      background: white; color: var(--text-muted);
+    }
+    .menu-item-row .desc-input:focus { outline: none; border-color: var(--gold); }
+    .menu-item-row .tag-input {
+      width: 120px; padding: 6px 10px; border: 1px solid var(--divider);
+      border-radius: 6px; font-size: 12px; font-family: inherit;
+      background: white; color: var(--text-muted);
+    }
+    .menu-item-row .tag-input:focus { outline: none; border-color: var(--gold); }
+    .featured-toggle {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--text-muted); cursor: pointer;
+      white-space: nowrap;
+    }
+    .featured-toggle input { accent-color: var(--gold); cursor: pointer; }
+    .btn-remove-item {
+      background: none; border: none; color: var(--red); cursor: pointer;
+      font-size: 18px; padding: 4px; line-height: 1;
+    }
+    .btn-remove-item:hover { opacity: 0.7; }
+    .btn-add-item {
+      padding: 8px 16px; border-radius: 8px; border: 1px dashed var(--divider);
+      background: none; font-size: 13px; cursor: pointer; font-family: inherit;
+      color: var(--text-muted); width: 100%; text-align: center;
+      transition: all 0.2s; margin-top: 8px;
+    }
+    .btn-add-item:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-save-menu {
+      padding: 12px 32px; border: none; border-radius: 8px;
+      background: var(--gold); color: white; font-size: 15px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: background 0.2s;
+      margin-top: 16px;
+    }
+    .btn-save-menu:hover { background: var(--gold-bright); }
+    .save-status {
+      font-size: 13px; color: var(--green); margin-left: 12px;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .save-status.show { opacity: 1; }
+
+    /* Empty state */
+    .empty { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+    .empty .icon { font-size: 40px; margin-bottom: 12px; }
+
+    /* Loading */
+    .loading { text-align: center; padding: 40px; color: var(--text-muted); }
+
+    @media (max-width: 720px) {
+      .order-card { flex-direction: column; gap: 16px; }
+      .order-actions { flex-direction: row; flex-wrap: wrap; min-width: 0; }
+      .stat-card { min-width: 100px; }
+      .stat-card .value { font-size: 22px; }
+      .menu-item-row { flex-wrap: wrap; }
+      .menu-item-row .name-input { min-width: 100px; }
+      .menu-item-row .desc-input { min-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login">
+  <div class="login-card">
+    <h1>Goldy's Bagels</h1>
+    <p>Admin Dashboard</p>
+    <input type="password" id="tokenInput" placeholder="Admin token" autofocus>
+    <button onclick="doLogin()">Log In</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard">
+  <div class="topbar">
+    <h1>Goldy's <span>Bagels</span> — Admin</h1>
+    <div class="top-right">
+      <span class="stats" id="statsText"></span>
+      <button class="btn-refresh" onclick="refreshCurrentTab()">↻ Refresh</button>
+      <button class="btn-logout" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('orders')" id="tabOrders">Orders</button>
+    <button class="tab-btn" onclick="switchTab('menu')" id="tabMenu">Weekly Menu</button>
+    <button class="tab-btn" onclick="switchTab('art')" id="tabArt">Art</button>
+  </div>
+
+  <!-- Orders Tab -->
+  <div class="tab-panel active" id="panelOrders">
+    <div class="stats-bar" id="statsBar"></div>
+    <div class="orders-container">
+      <div class="filter-bar" id="filterBar"></div>
+      <div id="ordersList"></div>
+    </div>
+  </div>
+
+  <!-- Weekly Menu Tab -->
+  <div class="tab-panel" id="panelMenu">
+    <div class="menu-container">
+      <div class="menu-section">
+        <h2>Bagels</h2>
+        <div id="bagelsEditor"></div>
+        <button class="btn-add-item" onclick="addMenuItem('bagels')">+ Add Bagel</button>
+      </div>
+      <div class="menu-section">
+        <h2>Shmears</h2>
+        <div id="shmearsEditor"></div>
+        <button class="btn-add-item" onclick="addMenuItem('shmears')">+ Add Shmear</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="btn-save-menu" onclick="saveWeeklyMenu()">Save Weekly Menu</button>
+        <span class="save-status" id="saveStatus">✓ Saved</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Art Tab -->
+  <div class="tab-panel" id="panelArt">
+    <div class="menu-container">
+      <div style="margin-bottom:24px">
+        <h2 style="font-size:16px;font-weight:600;margin-bottom:8px;color:var(--dark)">Generate Thumbnail Art</h2>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">
+          Select an existing variety to regenerate art, or type a new variety name.
+        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
+          <div>
+            <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:4px">Type</label>
+            <select id="artType" style="padding:10px 14px;border:1px solid var(--divider);border-radius:8px;font-size:14px;font-family:inherit;background:white;color:var(--text)">
+              <option value="bagel">Bagel</option>
+              <option value="shmear">Shmear</option>
+            </select>
+          </div>
+          <div style="flex:1;min-width:200px">
+            <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:4px">Pick existing variety</label>
+            <select id="artVariety" style="width:100%;padding:10px 14px;border:1px solid var(--divider);border-radius:8px;font-size:14px;font-family:inherit;background:white;color:var(--text)">
+              <option value="">— Select an existing variety —</option>
+            </select>
+          </div>
+          <div style="flex:1;min-width:200px">
+            <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:4px">Or type a new variety name</label>
+            <input id="artNewName" style="width:100%;padding:10px 14px;border:1px solid var(--divider);border-radius:8px;font-size:14px;font-family:inherit;background:white;color:var(--text)" placeholder="e.g. Poppy Seed">
+          </div>
+          <div style="flex:2;min-width:280px">
+            <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:4px">Guidance (optional — e.g. "just a salmon")</label>
+            <input id="artGuidance" style="width:100%;padding:10px 14px;border:1px solid var(--divider);border-radius:8px;font-size:14px;font-family:inherit;background:white;color:var(--text)" placeholder="Override the description, e.g. just a salmon">
+          </div>
+          <button id="artGenBtn" class="btn-save-menu" onclick="generateArt()" style="margin-top:0;white-space:nowrap">🎨 Generate</button>
+        </div>
+        <div id="artStatus" style="margin-top:12px;font-size:13px;color:var(--green);display:none"></div>
+      </div>
+
+      <div style="border-top:1px solid var(--divider);padding-top:24px">
+        <h2 style="font-size:16px;font-weight:600;margin-bottom:16px;color:var(--dark)">Existing Thumbnails</h2>
+        <div id="artGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = '/api';
+let adminToken = localStorage.getItem('goldys_admin_token') || '';
+let allOrders = [];
+let currentFilter = 'all';
+let currentTab = 'orders';
+const STATUS_FLOW = ['pending', 'paid', 'in_oven', 'ready', 'picked_up'];
+const STATUS_LABELS = {
+  pending: 'Pending', paid: 'Paid', in_oven: 'In Oven', ready: 'Ready', picked_up: 'Picked Up'
+};
+
+let menuBagels = [];
+let menuShmears = [];
+
+// Auto-login if token exists
+if (adminToken) showDashboard();
+
+async function doLogin() {
+  const token = document.getElementById('tokenInput').value.trim();
+  if (!token) return;
+  adminToken = token;
+  try {
+    const res = await fetch(`${API}/admin/orders`, { headers: { 'X-Admin-Token': token } });
+    if (!res.ok) throw new Error();
+    localStorage.setItem('goldys_admin_token', token);
+    showDashboard();
+  } catch {
+    document.getElementById('loginError').textContent = 'Invalid token or server error';
+  }
+}
+
+function logout() {
+  localStorage.removeItem('goldys_admin_token');
+  adminToken = '';
+  location.reload();
+}
+
+function showDashboard() {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  loadOrders();
+  loadWeeklyMenu();
+  setInterval(() => { if (currentTab === 'orders') loadOrders(); }, 15000);
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+  document.getElementById('panel' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+  if (tab === 'menu') renderMenuEditor();
+  if (tab === 'art') loadExistingArt();
+}
+
+function refreshCurrentTab() {
+  if (currentTab === 'orders') loadOrders();
+  else loadWeeklyMenu();
+}
+
+/* ===== ORDERS ===== */
+
+async function loadOrders() {
+  try {
+    const res = await fetch(`${API}/admin/orders`, { headers: { 'X-Admin-Token': adminToken } });
+    if (res.status === 401) { logout(); return; }
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    allOrders = data.orders || [];
+    renderStats();
+    renderFilters();
+    renderOrders();
+  } catch (e) {
+    document.getElementById('ordersList').innerHTML = '<div class="loading">Could not load orders. Tap refresh.</div>';
+  }
+}
+
+function renderStats() {
+  const byStatus = {};
+  let revenue = 0;
+  allOrders.forEach(o => {
+    const s = o.status || 'unknown';
+    byStatus[s] = (byStatus[s] || 0) + 1;
+    if (s === 'paid' || s === 'in_oven' || s === 'ready' || s === 'picked_up') {
+      revenue += (o.subtotal_cents || 0) + (o.tip_cents || 0);
+    }
+  });
+  const bar = document.getElementById('statsBar');
+  bar.innerHTML = `
+    <div class="stat-card"><div class="label">Total Orders</div><div class="value">${allOrders.length}</div></div>
+    <div class="stat-card"><div class="label">Revenue</div><div class="value gold">$${(revenue/100).toFixed(2)}</div></div>
+    <div class="stat-card"><div class="label">Pending</div><div class="value">${byStatus.pending || 0}</div></div>
+    <div class="stat-card"><div class="label">Paid / Active</div><div class="value">${(byStatus.paid||0) + (byStatus.in_oven||0) + (byStatus.ready||0)}</div></div>
+  `;
+  document.getElementById('statsText').innerHTML = `<strong>${allOrders.length}</strong> orders`;
+}
+
+function renderFilters() {
+  const statuses = ['all', ...STATUS_FLOW];
+  const counts = { all: allOrders.length };
+  allOrders.forEach(o => { counts[o.status] = (counts[o.status] || 0) + 1; });
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = statuses.map(s => {
+    const label = s === 'all' ? 'All' : STATUS_LABELS[s];
+    const count = counts[s] || 0;
+    const active = currentFilter === s ? 'active' : '';
+    return `<button class="filter-chip ${active}" onclick="setFilter('${s}')\">${label} (${count})</button>`;
+  }).join('');
+}
+
+function setFilter(s) { currentFilter = s; renderFilters(); renderOrders(); }
+
+function renderOrders() {
+  const list = document.getElementById('ordersList');
+  let orders = allOrders;
+  if (currentFilter !== 'all') orders = orders.filter(o => o.status === currentFilter);
+  if (!orders.length) {
+    list.innerHTML = '<div class="empty"><div class="icon">🥯</div>No orders found.</div>';
+    return;
+  }
+  list.innerHTML = orders.map(o => {
+    const date = new Date((o.created_at || 0) * 1000);
+    const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
+      ' ' + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    const items = (o.items_json || []).map(i => `<span class="qty">${i.quantity}×</span> ${i.name}`).join(', ');
+    const total = ((o.subtotal_cents || 0) + (o.tip_cents || 0)) / 100;
+    const tip = o.tip_cents > 0 ? ` (+$${(o.tip_cents/100).toFixed(2)} tip)` : '';
+    const notes = o.notes ? `<div class="order-notes">"${escHtml(o.notes)}"</div>` : '';
+    return `
+      <div class="order-card">
+        <div class="order-main">
+          <div class="order-header">
+            <span class="status-badge status-${o.status}"><span class="status-dot"></span>${STATUS_LABELS[o.status] || o.status}</span>
+            <span class="order-name">${escHtml(o.customer_name)}</span>
+            <span class="order-phone">${escHtml(o.customer_phone)}</span>
+            <span class="order-date">${dateStr}</span>
+          </div>
+          <div class="order-items">${items || '—'} · ${o.total_bagels} bagels</div>
+          <div class="order-total">$${total.toFixed(2)}${tip}</div>
+          ${notes}
+          <div class="order-id">${o.id}</div>
+        </div>
+        <div class="order-actions">
+          ${STATUS_FLOW.map(s => `
+            <button class="status-btn ${o.status === s ? 'current' : ''}" data-status="${s}"
+              onclick="updateStatus('${o.id}', '${s}')" ${o.status === s ? 'disabled' : ''}>
+              <span class="dot"></span>${STATUS_LABELS[s]}
+            </button>
+          `).join('')}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+async function updateStatus(orderId, status) {
+  try {
+    const res = await fetch(`${API}/admin/update-status`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': adminToken },
+      body: JSON.stringify({ order_id: orderId, status }),
+    });
+    if (!res.ok) throw new Error();
+    loadOrders();
+  } catch {
+    alert('Failed to update order status');
+  }
+}
+
+/* ===== WEEKLY MENU ===== */
+
+async function loadWeeklyMenu() {
+  try {
+    const res = await fetch(`${API}/admin/weekly-menu`, { headers: { 'X-Admin-Token': adminToken } });
+    if (res.status === 401) { logout(); return; }
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    menuBagels = data.bagels || [];
+    menuShmears = data.shmears || [];
+    if (currentTab === 'menu') renderMenuEditor();
+  } catch (e) {
+    console.error('Failed to load weekly menu', e);
+  }
+}
+
+function renderMenuEditor() {
+  renderMenuList('bagels', menuBagels);
+  renderMenuList('shmears', menuShmears);
+}
+
+function renderMenuList(type, items) {
+  const container = document.getElementById(type + 'Editor');
+  if (!items.length) {
+    container.innerHTML = '<div class="empty"><div class="icon">🥯</div>No items yet.</div>';
+    return;
+  }
+  container.innerHTML = items.map((item, idx) => {
+    const extra = item.extra || {};
+    const featured = extra.featured;
+    const tags = (extra.tags || []).join(', ');
+    const isBagel = type === 'bagels';
+    return `
+      <div class="menu-item-row">
+        <input class="name-input" value="${escHtml(item.name)}"
+          placeholder="Name" onchange="updateMenuItem('${type}', ${idx}, 'name', this.value)">
+        <input class="desc-input" value="${escHtml(item.description || '')}"
+          placeholder="${isBagel ? 'Description (optional)' : 'Description'}"
+          onchange="updateMenuItem('${type}', ${idx}, 'description', this.value)">
+        <label class="featured-toggle">
+          <input type="checkbox" ${featured ? 'checked' : ''}
+            onchange="updateMenuItem('${type}', ${idx}, 'featured', this.checked)">
+          ★ Featured
+        </label>
+        <button class="btn-remove-item" onclick="removeMenuItem('${type}', ${idx})" title="Remove">×</button>
+      </div>`;
+  }).join('');
+}
+
+function updateMenuItem(type, idx, field, value) {
+  const items = type === 'bagels' ? menuBagels : menuShmears;
+  if (!items[idx]) return;
+  if (field === 'featured') {
+    if (!items[idx].extra) items[idx].extra = {};
+    items[idx].extra.featured = !!value;
+  } else {
+    items[idx][field] = value;
+  }
+}
+
+function updateMenuTags(type, idx, value) {
+  const items = type === 'bagels' ? menuBagels : menuShmears;
+  if (!items[idx]) return;
+  const tags = value.split(',').map(t => t.trim()).filter(Boolean);
+  if (!items[idx].extra) items[idx].extra = {};
+  items[idx].extra.tags = tags;
+}
+
+function addMenuItem(type) {
+  const items = type === 'bagels' ? menuBagels : menuShmears;
+  const extra = { featured: false };
+  items.push({ name: 'New Item', description: '', extra, sort_order: items.length + 1 });
+  renderMenuList(type, items);
+}
+
+function removeMenuItem(type, idx) {
+  const items = type === 'bagels' ? menuBagels : menuShmears;
+  items.splice(idx, 1);
+  renderMenuList(type, items);
+}
+
+async function saveWeeklyMenu() {
+  const btn = document.querySelector('.btn-save-menu');
+  const status = document.getElementById('saveStatus');
+  btn.textContent = 'Saving...';
+  btn.disabled = true;
+  status.classList.remove('show');
+  try {
+    // Build payload with sort_order
+    const payload = {
+      bagels: menuBagels.map((item, i) => ({
+        name: item.name,
+        description: item.description || '',
+        extra: item.extra || {},
+        sort_order: item.sort_order || i,
+      })),
+      shmears: menuShmears.map((item, i) => ({
+        name: item.name,
+        description: item.description || '',
+        extra: item.extra || {},
+        sort_order: item.sort_order || i,
+      })),
+    };
+    const res = await fetch(`${API}/admin/weekly-menu`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': adminToken },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error('Save failed');
+    status.textContent = '✓ Saved';
+    status.classList.add('show');
+    setTimeout(() => status.classList.remove('show'), 3000);
+  } catch (e) {
+    alert('Failed to save menu: ' + e.message);
+  } finally {
+    btn.textContent = 'Save Weekly Menu';
+    btn.disabled = false;
+  }
+}
+
+/* ===== ART GENERATOR ===== */
+
+let existingArt = { bagels: [], shmears: [] };
+
+async function loadExistingArt() {
+  try {
+    const [artRes, menuRes] = await Promise.all([
+      fetch(`${API}/admin/existing-art`, { headers: { 'X-Admin-Token': adminToken } }),
+      fetch(`${API}/admin/weekly-menu`, { headers: { 'X-Admin-Token': adminToken } }),
+    ]);
+    if (artRes.ok) existingArt = await artRes.json();
+    const menuData = menuRes.ok ? await menuRes.json() : { bagels: [], shmears: [] };
+    // Populate dropdown from weekly menu items
+    const sel = document.getElementById('artVariety');
+    const itemType = document.getElementById('artType').value;
+    const items = itemType === 'bagel' ? (menuData.bagels || []) : (menuData.shmears || []);
+    const existingNames = new Set(items.map(i => i.name));
+    // Also add names from existing art that aren't in the menu
+    const artNames = (existingArt[itemType + 's'] || []).map(f => {
+      const n = f.replace(itemType + '-', '').replace('.png', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      return n;
+    });
+    const allNames = [...new Set([...items.map(i => i.name), ...artNames])];
+    sel.innerHTML = '<option value="">— Select an existing variety —</option>' +
+      allNames.map(n => {
+        const hasArt = artNames.some(a => a.toLowerCase() === n.toLowerCase()) ||
+          (existingArt[itemType + 's'] || []).some(f => f.toLowerCase().startsWith(itemType + '-' + n.toLowerCase().replace(/\s+/g, '-')));
+        return `<option value="${escHtml(n)}">${escHtml(n)}${hasArt ? ' 🖼' : ''}</option>`;
+      }).join('');
+    if (currentTab === 'art') renderArtGrid();
+  } catch (e) {
+    console.error('Failed to load art data', e);
+  }
+}
+
+function renderArtGrid() {
+  const grid = document.getElementById('artGrid');
+  const all = [...(existingArt.bagels || []).map(f => ({ f, t: 'bagel' })),
+                ...(existingArt.shmears || []).map(f => ({ f, t: 'shmear' }))];
+  if (!all.length) {
+    grid.innerHTML = '<div class="empty"><div class="icon">🖼</div>No art generated yet.</div>';
+    return;
+  }
+  grid.innerHTML = all.reverse().map(({ f, t }) => {
+    const label = f.replace(t + '-', '').replace('.png', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    const cacheBust = '?t=' + Date.now();
+    return `<div style="background:var(--cream-light);border-radius:10px;padding:10px;text-align:center;border:1px solid var(--divider)">
+      <img src="/assets/thumbs/${f}${cacheBust}" alt="${escHtml(label)}" style="width:100%;aspect-ratio:1;object-fit:contain;border-radius:6px;background:white;margin-bottom:6px"
+        onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23eee%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2230%22>🥯</text></svg>'">
+      <div style="font-size:11px;color:var(--text-muted);line-height:1.3">${escHtml(label)}</div>
+    </div>`;
+  }).join('');
+}
+
+function populateArtDropdown() {
+  loadExistingArt();
+}
+
+function getArtName() {
+  const sel = document.getElementById('artVariety');
+  const newName = document.getElementById('artNewName').value.trim();
+  return newName || sel.value;
+}
+
+async function generateArt() {
+  const itemType = document.getElementById('artType').value;
+  const name = getArtName();
+  const guidance = document.getElementById('artGuidance').value.trim();
+  if (!name) { alert('Select a variety from the dropdown or type a new name.'); return; }
+  const btn = document.getElementById('artGenBtn');
+  const status = document.getElementById('artStatus');
+  btn.textContent = '⏳ Generating... (up to 5 min)';
+  btn.disabled = true;
+  status.style.display = 'none';
+  try {
+    const payload = { item_type: itemType, name };
+    if (guidance) payload.guidance = guidance;
+    const res = await fetch(`${API}/admin/generate-art`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': adminToken },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    status.textContent = data.success ? '✅ ' + data.message : '❌ ' + data.message;
+    status.style.color = data.success ? 'var(--green)' : 'var(--red)';
+    status.style.display = 'block';
+    if (data.success) loadExistingArt();
+  } catch (e) {
+    status.textContent = '❌ ' + e.message;
+    status.style.color = 'var(--red)';
+    status.style.display = 'block';
+  } finally {
+    btn.textContent = '🎨 Generate';
+    btn.disabled = false;
+  }
+}
+
+// Sync dropdown when type changes
+document.addEventListener('DOMContentLoaded', () => {
+  const typeSel = document.getElementById('artType');
+  if (typeSel) typeSel.addEventListener('change', populateArtDropdown);
+});
+
+function escHtml(s) {
+  const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML;
+}
+
+// Enter key on login
+document.getElementById('tokenInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+</script>
+</body>
+</html>

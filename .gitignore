@@ -1,0 +1,17 @@
+# The iOS app lives in its own repo (trickysyntax/GoldysBagelsApp)
+GoldysBagelsApp/
+
+# Secrets / local env
+.env
+.env.*
+*.pem
+*.p8
+*.key
+
+# OS junk
+.DS_Store
+
+# Backups & caches
+*.bak
+__pycache__/
+*.pyc

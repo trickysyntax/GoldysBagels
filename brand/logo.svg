@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <radialGradient id="crustGrad" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#D4993A"/>
+      <stop offset="60%" stop-color="#C8882B"/>
+      <stop offset="100%" stop-color="#A06B1F"/>
+    </radialGradient>
+    <radialGradient id="innerShadow" cx="50%" cy="50%" r="40%">
+      <stop offset="0%" stop-color="#8B6914" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#8B6914" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2C1810" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Bagel body -->
+  <ellipse cx="100" cy="100" rx="72" ry="68" fill="url(#crustGrad)" stroke="#8B5E14" stroke-width="2" filter="url(#shadow)"/>
+  
+  <!-- Bagel hole -->
+  <ellipse cx="100" cy="98" rx="24" ry="22" fill="#FFF8EE" stroke="#A06B1F" stroke-width="1.5"/>
+  
+  <!-- Inner shadow ring around hole -->
+  <ellipse cx="100" cy="98" rx="32" ry="30" fill="none" stroke="url(#innerShadow)" stroke-width="8" opacity="0.4"/>
+  
+  <!-- Crust texture lines -->
+  <path d="M45 80 Q55 75 65 82" fill="none" stroke="#A06B1F" stroke-width="1" opacity="0.4"/>
+  <path d="M135 78 Q145 72 155 80" fill="none" stroke="#A06B1F" stroke-width="1" opacity="0.4"/>
+  <path d="M50 115 Q60 120 70 118" fill="none" stroke="#A06B1F" stroke-width="1" opacity="0.4"/>
+  <path d="M130 118 Q140 122 150 116" fill="none" stroke="#A06B1F" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Sesame seeds -->
+  <ellipse cx="65" cy="72" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-20 65 72)" stroke="#C8882B" stroke-width="0.5"/>
+  <ellipse cx="80" cy="60" rx="5" ry="3" fill="#E8D5B5" transform="rotate(15 80 60)" stroke="#C8882B" stroke-width="0.5"/>
+  <ellipse cx="120" cy="58" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-10 120 58)" stroke="#C8882B" stroke-width="0.5"/>
+  <ellipse cx="140" cy="68" rx="5" ry="3" fill="#E8D5B5" transform="rotate(25 140 68)" stroke="#C8882B" stroke-width="0.5"/>
+  <ellipse cx="150" cy="88" rx="5" ry="3" fill="#E8D5B5" transform="rotate(45 150 88)" stroke="#C8882B" stroke-width="0.5"/>
+  <ellipse cx="148" cy="108" rx="5" ry="3" fill="#E8D5B5" transform="rotate(70 148 108)" stroke="#C8882B" stroke-width="0.5"/>
+  <ellipse cx="55" cy="92" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-45 55 92)" stroke="#C8882B" stroke-width="0.5"/>
+  <ellipse cx="52" cy="112" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-60 52 112)" stroke="#C8882B" stroke-width="0.5"/>
+  <ellipse cx="100" cy="50" rx="5" ry="3" fill="#E8D5B5" transform="rotate(0 100 50)" stroke="#C8882B" stroke-width="0.5"/>
+  <ellipse cx="75" cy="135" rx="5" ry="3" fill="#E8D5B5" transform="rotate(-30 75 135)" stroke="#C8882B" stroke-width="0.5"/>
+  <ellipse cx="125" cy="135" rx="5" ry="3" fill="#E8D5B5" transform="rotate(30 125 135)" stroke="#C8882B" stroke-width="0.5"/>
+  
+  <!-- Highlight/shine -->
+  <ellipse cx="82" cy="65" rx="20" ry="10" fill="white" opacity="0.12" transform="rotate(-15 82 65)"/>
+  
+  <!-- Brand text arc - GOLDY'S -->
+  <path id="textArc" d="M 35 155 Q 100 185 165 155" fill="none"/>
+  <text font-family="'Playfair Display', Georgia, serif" font-size="18" font-weight="700" fill="#2C1810" letter-spacing="3">
+    <textPath href="#textArc" startOffset="50%" text-anchor="middle">GOLDY'S</textPath>
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="100" y="178" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="8" font-weight="500" fill="#8B6914" letter-spacing="2">BAGELS</text>
+</svg>
