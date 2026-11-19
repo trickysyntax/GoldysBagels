@@ -137,6 +137,11 @@
     .order-name { font-size: 16px; font-weight: 600; color: var(--dark); }
     .order-phone { font-size: 13px; color: var(--text-muted); }
     .order-date { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+    .order-pickup {
+      font-size: 12px; font-weight: 600; color: var(--dark);
+      background: rgba(201, 162, 74, 0.16); border: 1px solid var(--gold);
+      border-radius: 999px; padding: 2px 9px; white-space: nowrap;
+    }
 
     .status-badge {
       display: inline-flex; align-items: center; gap: 6px;
@@ -249,6 +254,78 @@
       .menu-item-row .name-input { min-width: 100px; }
       .menu-item-row .desc-input { min-width: 120px; }
     }
+
+    /* ===== FARM DAY CALENDAR ===== */
+    .farm-cal {
+      background: white;
+      border-bottom: 1px solid var(--divider);
+      padding: 16px 24px 14px;
+    }
+    .fc-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 10px; flex-wrap: wrap;
+    }
+    .fc-head h2 {
+      font-size: 14px; font-weight: 600; color: var(--dark);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .fc-actions { display: flex; align-items: center; gap: 10px; }
+    .fc-hint { font-size: 12px; color: var(--green); opacity: 0; transition: opacity .2s; }
+    .fc-hint.show { opacity: 1; }
+    .btn-ics {
+      font-size: 12px; font-weight: 600; padding: 6px 12px;
+      border: 1px solid var(--divider); border-radius: 8px;
+      background: white; color: var(--text); cursor: pointer;
+      font-family: inherit; white-space: nowrap;
+    }
+    .btn-ics:hover { border-color: var(--gold); }
+    .fc-strip {
+      display: flex; gap: 10px; overflow-x: auto;
+      padding-bottom: 6px;
+    }
+    .fc-strip::-webkit-scrollbar { height: 8px; }
+    .fc-strip::-webkit-scrollbar-thumb { background: var(--divider); border-radius: 4px; }
+    .fc-day {
+      flex: 0 0 auto; width: 148px;
+      border: 1px solid var(--divider); border-radius: 10px;
+      padding: 10px 12px; background: var(--cream-light, #FAF7F0);
+    }
+    .fc-day.closed { background: #F3EFE6; border-color: #D8CFBD; }
+    .fc-day.today { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+    .fc-wd {
+      font-size: 11px; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .fc-date { font-size: 15px; font-weight: 600; color: var(--dark); margin-bottom: 2px; }
+    .fc-badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 1px 7px; border-radius: 999px; margin-bottom: 4px;
+      background: var(--gold); color: white; letter-spacing: 0.05em;
+    }
+    .fc-badge.off { background: #B04A3A; }
+    .fc-counts { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+    .fc-counts b { color: var(--text); font-weight: 600; }
+    .fc-bar {
+      height: 5px; background: var(--divider); border-radius: 3px;
+      overflow: hidden; margin-bottom: 8px;
+    }
+    .fc-bar i { display: block; height: 100%; background: var(--gold); border-radius: 3px; }
+    .fc-day.closed .fc-bar i { background: #B04A3A; }
+    .fc-dough { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+    .fc-dough b { color: var(--text); font-weight: 600; }
+    .fc-ctrls { display: flex; flex-direction: column; gap: 6px; }
+    .fc-ctrls input[type="number"] {
+      width: 100%; box-sizing: border-box;
+      padding: 5px 8px; font-size: 13px; font-family: inherit;
+      border: 1px solid var(--divider); border-radius: 6px;
+      background: white; color: var(--text);
+    }
+    .fc-ctrls label {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: var(--text); cursor: pointer;
+    }
+    .fc-ctrls label input { accent-color: #B04A3A; }
+    .fc-loading { font-size: 13px; color: var(--text-muted); }
   </style>
 </head>
 <body>
@@ -272,6 +349,20 @@
       <span class="stats" id="statsText"></span>
       <button class="btn-refresh" onclick="refreshCurrentTab()">↻ Refresh</button>
       <button class="btn-logout" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+
+  <!-- Farm day calendar: capacity controls + bake schedule, always visible -->
+  <div class="farm-cal" id="farmCal">
+    <div class="fc-head">
+      <h2>Farm Days — next 3 weeks</h2>
+      <div class="fc-actions">
+        <span class="fc-hint" id="fcHint">✓ Saved</span>
+        <button class="btn-ics" onclick="downloadICS()">📅 Download bake calendar (.ics)</button>
+      </div>
+    </div>
+    <div class="fc-strip" id="fcStrip">
+      <div class="fc-loading">Loading farm days…</div>
     </div>
   </div>
 
@@ -395,6 +486,7 @@ function showDashboard() {
   document.getElementById('dashboard').style.display = 'block';
   loadOrders();
   loadWeeklyMenu();
+  loadFarmCal();
   setInterval(() => { if (currentTab === 'orders') loadOrders(); }, 15000);
 }
 
@@ -411,6 +503,109 @@ function switchTab(tab) {
 function refreshCurrentTab() {
   if (currentTab === 'orders') loadOrders();
   else loadWeeklyMenu();
+  loadFarmCal();
+}
+
+/* ===== FARM DAY CALENDAR ===== */
+let farmDays = [];
+
+async function loadFarmCal() {
+  try {
+    const res = await fetch(`${API}/admin/pickup-days?days=21`, { headers: { 'X-Admin-Token': adminToken } });
+    if (res.status === 401) { logout(); return; }
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    farmDays = data.days || [];
+    renderFarmCal();
+  } catch {
+    document.getElementById('fcStrip').innerHTML =
+      '<div class="fc-loading">Could not load farm days. Tap refresh.</div>';
+  }
+}
+
+// Parse YYYY-MM-DD as a *local* date — new Date('2026-11-26') is UTC
+// midnight, which is still the 25th in Arizona.
+function fcParse(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+function fcFmt(iso) {
+  return fcParse(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function renderFarmCal() {
+  const strip = document.getElementById('fcStrip');
+  if (!farmDays.length) {
+    strip.innerHTML = '<div class="fc-loading">No farm days found.</div>';
+    return;
+  }
+  const todayIso = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD local
+  strip.innerHTML = farmDays.map(d => {
+    const pct = d.capacity ? Math.min(100, Math.round((d.used / d.capacity) * 100)) : 0;
+    const badge = d.closed
+      ? '<span class="fc-badge off">CLOSED</span>'
+      : (d.capacity !== d.default_capacity ? `<span class="fc-badge">${d.capacity} cap</span>` : '');
+    return `
+      <div class="fc-day${d.closed ? ' closed' : ''}${d.date === todayIso ? ' today' : ''}" data-date="${d.date}">
+        <div class="fc-wd">${d.weekday.slice(0, 3)}</div>
+        <div class="fc-date">${fcFmt(d.date)}</div>
+        ${badge}
+        <div class="fc-counts"><b>${d.orders}</b> ${d.orders === 1 ? 'order' : 'orders'} · <b>${d.used}</b>/${d.capacity}</div>
+        <div class="fc-bar"><i style="width:${pct}%"></i></div>
+        <div class="fc-dough">Dough: <b>${fcFmt(d.dough_date)}</b></div>
+        <div class="fc-ctrls">
+          <input type="number" min="1" max="480" value="${d.capacity}"
+                 title="Bake capacity for this day"
+                 onchange="saveFarmDay('${d.date}')">
+          <label><input type="checkbox" ${d.closed ? 'checked' : ''}
+                 onchange="saveFarmDay('${d.date}')"> Pickup off</label>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+async function saveFarmDay(iso) {
+  const card = document.querySelector(`.fc-day[data-date="${iso}"]`);
+  if (!card) return;
+  const cap = parseInt(card.querySelector('input[type="number"]').value, 10);
+  const closed = card.querySelector('input[type="checkbox"]').checked;
+  if (!cap || cap < 1) { renderFarmCal(); return; }
+  const def = (farmDays.find(d => d.date === iso) || {}).default_capacity;
+  // At the default capacity with the day open, clear the override row entirely.
+  const capacity = (!closed && cap === def) ? null : cap;
+  try {
+    const res = await fetch(`${API}/admin/pickup-days`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': adminToken },
+      body: JSON.stringify({ date: iso, capacity, closed }),
+    });
+    if (!res.ok) throw new Error();
+    const hint = document.getElementById('fcHint');
+    hint.classList.add('show');
+    setTimeout(() => hint.classList.remove('show'), 1600);
+    await loadFarmCal();
+  } catch {
+    alert('Failed to save pickup day setting');
+    renderFarmCal();
+  }
+}
+
+async function downloadICS() {
+  try {
+    const res = await fetch(`${API}/admin/calendar.ics?days=21`, { headers: { 'X-Admin-Token': adminToken } });
+    if (!res.ok) throw new Error();
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'goldys-bake-calendar.ics';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch {
+    alert('Failed to download calendar');
+  }
 }
 
 /* ===== ORDERS ===== */
@@ -477,6 +672,14 @@ function renderOrders() {
     const date = new Date((o.created_at || 0) * 1000);
     const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
       ' ' + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    // Pickup date: split the string so it stays on the right calendar day
+    // (new Date('YYYY-MM-DD') parses as UTC midnight → previous day here).
+    let pickupStr = '';
+    if (o.pickup_date) {
+      const [py, pm, pd] = o.pickup_date.split('-').map(Number);
+      pickupStr = new Date(py, pm - 1, pd).toLocaleDateString('en-US',
+        { weekday: 'short', month: 'short', day: 'numeric' });
+    }
     const items = (o.items_json || []).map(i => `<span class="qty">${i.quantity}×</span> ${i.name}`).join(', ');
     const total = ((o.subtotal_cents || 0) + (o.tip_cents || 0)) / 100;
     const tip = o.tip_cents > 0 ? ` (+$${(o.tip_cents/100).toFixed(2)} tip)` : '';
@@ -488,6 +691,7 @@ function renderOrders() {
             <span class="status-badge status-${o.status}"><span class="status-dot"></span>${STATUS_LABELS[o.status] || o.status}</span>
             <span class="order-name">${escHtml(o.customer_name)}</span>
             <span class="order-phone">${escHtml(o.customer_phone)}</span>
+            ${pickupStr ? `<span class="order-pickup">Pickup ${pickupStr}</span>` : ''}
             <span class="order-date">${dateStr}</span>
           </div>
           <div class="order-items">${items || '—'} · ${o.total_bagels} bagels</div>
